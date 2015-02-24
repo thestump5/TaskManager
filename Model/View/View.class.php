@@ -11,7 +11,7 @@ class View
 {
     public static $Instance;
     public $tpl;
-    public $render = NULL;
+    private $render = NULL;
     
     function __construct()
     {

@@ -37,48 +37,37 @@ class User
         return self::$Instance;
     }
     
-    public function Accepted( &$Object, $Type )
-    {
-        //Так ли надо?
-        if ( !array_search( $Object, $this -> $Type ) )
-        {
-            array_push($this -> $Type, $Object);
-        }
-        
-        return TRUE;
-    }
+//    public function Current()
+//    {
+//        return $this -> id;
+//    }    
 
-    public function Current()
+    public function FakeOpen( $variable )
     {
-        return $this -> id;
-    }    
+        $this -> id = (int)rand(0, 1000);
+        return ($this -> id == TRUE);
+    }
+    
     
     public function Account()
     {
         $this -> Account = new Account( $this );
         return $this -> Account;
     }
-    public function Create( $name, $family, $nic, $address )
-    {
-        $this -> name = $name;
-        $this -> family = $family;
-        $this -> nic = $nic;
-        $this -> address = $address;
-        
-        return TRUE;
-    }
     
-    public function Open()
-    {
-        Repositoriy :: Instance() -> Open ( $this );
-        return ($this -> id == TRUE);
-    }
+//    public function Create( $name, $family, $nic, $address )
+//    {
+//        $this -> name = $name;
+//        $this -> family = $family;
+//        $this -> nic = $nic;
+//        $this -> address = $address;
+//        
+//        return TRUE;
+//    }
     
-    public function Save()
-    {
-        Repositoriy :: Instance() -> Save ( $this );
-        return ($this -> id == TRUE);
-    }
-    
-
+//    public function Save()
+//    {
+//        Repositoriy :: Instance() -> Save ( $this );
+//        return ($this -> id == TRUE);
+//    }
 }

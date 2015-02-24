@@ -14,4 +14,4 @@ $time_start = microtime();
 require_once '/../Model/app.php';
 
 app::Init();
-app :: Instance() -> Notify( "<b>Script time:</b> " . round((microtime() - $time_start), 5) );
+app :: Instance() -> Notify( "<b>Script time:</b> " . round( ( microtime() - $time_start ), 5 ) );

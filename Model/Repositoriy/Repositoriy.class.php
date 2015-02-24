@@ -27,15 +27,13 @@ class Repositoriy {
        return self :: $Instance;
     }
     
-    public function Open( &$obj)
+    public function Open( &$obj )
     {
-        $obj -> id = (int)rand(0, 1000);
         return FALSE;
     }
     
     public function Save( &$obj )
     {
-        $obj -> id = (int)rand(0, 1000);
         return FALSE;
     }
 }

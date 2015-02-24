@@ -1,30 +1,28 @@
 <?php
 
 namespace Repositoriy;
-require_once '/../project/Task/Task.class.php';
-use Task\Task;
+require_once '/../Model/User/User.class.php';
+use User\User;
 /**
  * Description of Test_CanTaskWorking
  *
  * @author Максим
  */
 
-require_once '/../project/Repositoriy/Repositoriy.class.php';
+require_once '/../Model/Repositoriy/Repositoriy.class.php';
 
 class RepositoriyTest extends \PHPUnit_Framework_TestCase
 {
     function testIsSave()
     {
         $Repositoriy = new Repositoriy();
-        $Task = new Task();
-        $this -> assertTrue( $Repositoriy -> Save( $Task ) );
+        $this -> assertTrue( $Repositoriy -> Save( new User() ) );
     }
 
     function testIsOpen()
     {
         $Repositoriy = new Repositoriy();
-        $Task = new Task();
-        $this -> assertTrue( $Repositoriy -> Open( $Task ) );
+        $this -> assertTrue( $Repositoriy -> Open( new User() ) );
     }
     
 }

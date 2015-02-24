@@ -7,21 +7,21 @@ namespace View;
  * @author Максим
  */
 
-require_once '/../Views/View/View.class.php';
+require_once '/../Model/View/View.class.php';
 
 class ViewTest extends \PHPUnit_Framework_TestCase
 {
     function testCanMakeOutputData()
     {
         $View =  View:: Instance();
-        $View -> tpl = '/Error/e404.tpl.php';
+        $View -> tpl = 'Error_e404';
         $this -> assertTrue( $View -> tpl(  ) );
     }
     
     function testBrowserToGetOutputData()
     {
         $View =  View:: Instance();
-        $View -> tpl = '/Error/e404.tpl.php';
+        $View -> tpl = 'Error_e404';
         $this -> assertTrue( $View -> Output(  ) );
     }
 }

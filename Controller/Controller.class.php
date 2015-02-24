@@ -2,6 +2,7 @@
 
 namespace Controller;
 use View\View;
+use User\User;
 /**
  * Description of Controller
  *
@@ -32,11 +33,23 @@ class Controller
     
     private function Index(  ) 
     {
+        View:: Instance() -> tpl = 'User_FormLogin';
         View :: Instance() -> Output(  );
     }
     
     private function Login(  )
     {
+        $tpl = "User_OpenAccount";
+        if ( array_key_exists('login', $this -> request) &&
+                array_key_exists('pw', $this -> request))
+        {
+            $User = User :: Instance();
+            $User -> FakeOpen( $this -> request['login'] );
+            $User -> Account() -> FakeOpen(  );
+            $tpl = $User -> Account() -> GetTemplate();
+        }
+        
+        View:: Instance() -> tpl = $tpl;
         View :: Instance() -> Output(  );
     }
     
