@@ -13,13 +13,15 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 {
     function testCanMakeOutputData()
     {
-        View:: Instance() -> tpl = '/Error/e404.tpl.php';
-        $this -> assertTrue( View :: Instance() -> tpl(  ) );
+        $View =  View:: Instance();
+        $View -> tpl = '/Error/e404.tpl.php';
+        $this -> assertTrue( $View -> tpl(  ) );
     }
     
     function testBrowserToGetOutputData()
     {
-        View:: Instance() -> tpl = '/Error/e404.tpl.php';
-        $this -> assertTrue( View :: Instance() -> Output(  ) );
+        $View =  View:: Instance();
+        $View -> tpl = '/Error/e404.tpl.php';
+        $this -> assertTrue( $View -> Output(  ) );
     }
 }

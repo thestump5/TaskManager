@@ -32,7 +32,6 @@ class Autoload
     protected function register()
     {
         spl_autoload_register();
-//        spl_autoload_register(array($this, 'autoload_classes'));
         spl_autoload_register(array($this, 'autoload_classes_controller'));
         spl_autoload_register(array($this, 'autoload_classes_model'));
         spl_autoload_register(array($this, 'autoload_classes_view'));
@@ -40,18 +39,6 @@ class Autoload
         spl_autoload_register(array($this, 'autoload_interfaces'));
     }
     
-//    private function autoload_classes( $class )
-//    {
-//        $path = $this -> doc_root . '/../project/' . $class . '.class.php';
-//
-//        $path = str_replace("\\", "/", $path);
-//        
-//        if (is_file($path))
-//        {
-//            require_once $path;
-//        }
-//    }
-
     private function autoload_classes_controller( $class )
     {
         $path = $this -> doc_root . '/../' . $class . '.class.php';
@@ -111,7 +98,4 @@ class Autoload
             require_once $path;
         }
     }
-    
-    
-    
 }

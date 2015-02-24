@@ -28,8 +28,6 @@ class View
         return self::$Instance;
     }
     
-
-
     public function tpl()
     {
         if ( file_exists( ( $tpl = self :: Instance() -> prepare_filepath() ) ) )
