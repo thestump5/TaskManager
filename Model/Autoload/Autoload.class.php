@@ -54,7 +54,7 @@ class Autoload
     private function autoload_classes_model( $class )
     {
         $path = $this -> doc_root . '/../Model/' . $class . '.class.php';
-
+        
         $path = str_replace("\\", "/", $path);
         
         if (is_file($path))

@@ -63,7 +63,7 @@ class View
     
     private function prepare_filepath()
     {
-        $tpl = dirname(__DIR__) . self :: Instance() -> tpl;
+        $tpl = dirname(__DIR__) . '/../Views/' . self :: Instance() -> tpl;
         
         $tpl = str_replace( "\\", "/", $tpl );
         $tpl = str_replace( "//", "/", $tpl );
