@@ -42,7 +42,7 @@ class Controller
     
     private function __404()
     {
-        View:: Instance() -> tpl = '/Error/e404.tpl.php';
+        View:: Instance() -> tpl = 'Error_e404';
         View :: Instance() -> Output(  );
     }
 }

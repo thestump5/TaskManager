@@ -30,11 +30,13 @@ class View
     
     public function tpl()
     {
-        if ( file_exists( ( $tpl = self :: Instance() -> prepare_filepath() ) ) )
+        self :: Instance() -> prepare_filepath();
+        
+        if ( file_exists( self :: Instance() -> tpl ) )
         {
             ob_start();
                 
-                require $tpl;
+                require self :: Instance() -> tpl;
             
             $this -> render =  ob_get_clean();
         }
@@ -63,11 +65,12 @@ class View
     
     private function prepare_filepath()
     {
-        $tpl = dirname(__DIR__) . '/../Views/' . self :: Instance() -> tpl;
+        $tpl = dirname(__DIR__) . '/../Views/' . self :: Instance() -> tpl . '.tpl.php';
         
         $tpl = str_replace( "\\", "/", $tpl );
         $tpl = str_replace( "//", "/", $tpl );
+        $tpl = str_replace( "_", "/", $tpl );
         
-        return $tpl;
+        return ( self :: Instance() -> tpl = $tpl );
     }
 }
