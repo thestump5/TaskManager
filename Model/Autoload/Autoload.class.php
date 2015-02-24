@@ -54,7 +54,7 @@ class Autoload
 
     private function autoload_classes_controller( $class )
     {
-        $path = $this -> doc_root . '/../Controller/' . $class . '.class.php';
+        $path = $this -> doc_root . '/../' . $class . '.class.php';
 
         $path = str_replace("\\", "/", $path);
         
@@ -78,7 +78,7 @@ class Autoload
 
     private function autoload_classes_view( $class )
     {
-        $path = $this -> doc_root . '/../View/' . $class . '.class.php';
+        $path = $this -> doc_root . '/../Views/' . $class . '.class.php';
 
         $path = str_replace("\\", "/", $path);
         

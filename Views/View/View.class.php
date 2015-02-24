@@ -28,39 +28,48 @@ class View
         return self::$Instance;
     }
     
+
+
     public function tpl()
     {
-        $docroot = $_SERVER['DOCUMENT_ROOT'] . '/../Views/';
-        $tpl = str_replace( "\\", "/", $docroot . $this -> tpl);
-        $tpl = str_replace( "//", "/", $tpl);
-        if ( file_exists($tpl) )
+        if ( file_exists( ( $tpl = self :: Instance() -> prepare_filepath() ) ) )
         {
-            $this -> render = file_get_contents( $tpl );
+            ob_start();
+                
+                require $tpl;
+            
+            $this -> render =  ob_get_clean();
         }
         else
         {
-            throw new \Exception( "No template to render" );
+            throw new \Exception( "No template to send output" );
         }
         
         return true;
     }
     
-    public function Output( $state = true )
+    public function Output(  )
     {
-        if ( empty( $this -> tpl ) )
+        if ( empty( self :: Instance() -> tpl ) )
         {
-            throw new \Exception( "No template to render" );
+            throw new \Exception( "Template variable empty" );
         }
         else
         {
-            ob_start();
-                
-                self :: Instance() -> tpl();
-                echo $this -> render;
-                
-            ob_flush();
+            self :: Instance() -> tpl();
+            echo $this -> render;
         }
         
-        return $state;
+        return true;
+    }
+    
+    private function prepare_filepath()
+    {
+        $tpl = dirname(__DIR__) . self :: Instance() -> tpl;
+        
+        $tpl = str_replace( "\\", "/", $tpl );
+        $tpl = str_replace( "//", "/", $tpl );
+        
+        return $tpl;
     }
 }
