@@ -7,6 +7,7 @@ namespace User;
  * @author Максим
  */
 
+require_once '/../Helpers/Interface/ICommand/Command.interface.php';
 require_once '/../Model/User/User.class.php';
 require_once '/../Model/User/Account.class.php';
 
@@ -24,7 +25,6 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $Account -> SetTemplate( "Template" );
         $this -> assertNotEmpty( $Account -> GetTemplate() );
     }
-    
     
     function testCanCheckEqualseAccountUser()
     {

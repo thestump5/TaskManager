@@ -37,21 +37,79 @@ class Controller
         View :: Instance() -> Output(  );
     }
     
-    private function Login(  )
+    /*
+     * User section
+     */
+    
+    private function UserLogin(  )
     {
-        $tpl = "User_OpenAccount";
-        if ( array_key_exists('login', $this -> request) &&
-                array_key_exists('pw', $this -> request))
+        if ( User :: Instance() -> Account() -> FakeOpen(  ) )
         {
-            $User = User :: Instance();
-            $User -> FakeOpen( $this -> request['login'] );
-            $User -> Account() -> FakeOpen(  );
-            $tpl = $User -> Account() -> GetTemplate();
+            $tpl = User :: Instance() -> Account() -> GetTemplate();
         }
         
-        View:: Instance() -> tpl = $tpl;
+        View:: Instance() -> tpl = empty($tpl) ? "User_OpenAccount" : $tpl;
         View :: Instance() -> Output(  );
     }
+    
+    private function UserLogout()
+    {
+        if ( User :: Instance() -> Account() -> Close(  ) )
+        {
+            $tpl = User :: Instance() -> Account() -> GetTemplate();
+        }
+        
+        View:: Instance() -> tpl = empty($tpl) ? "User_OpenAccount" : $tpl;
+        View :: Instance() -> Output(  );        
+    }
+    
+    private function UserSelect()
+    {
+        if ( User :: Instance() -> Open(  ) )
+        {
+            $tpl = User :: Instance() -> Account() -> GetTemplate();
+        }
+
+        View:: Instance() -> tpl = empty($tpl) ? "None_Empty" : $tpl;
+        View :: Instance() -> Output(  );        
+    }
+    
+    private function UserAuthentificate()
+    {
+        ;
+    }
+    /**
+     * Project section
+     */
+    
+    private function ProjectOpen()
+    {
+        ;
+    }
+
+    private function ProjectAccept()
+    {
+        ;
+    }
+    
+    private function ProjectClose()
+    {
+        ;
+    }    
+
+    private function ProjectSelect()
+    {
+        ;
+    }
+    
+    private function ProjectLeave() //покинуть проект
+    {
+        ;
+    }
+    
+    /**
+     * Error section
+     */
     
     private function __404()
     {

@@ -7,18 +7,20 @@
  */
 
 namespace User;
+use ICommand\Command;
 use Repositoriy\Repositoriy;
 /**
  * Description of User
  *
  * @author Максим
  */
-class User 
+class User implements Command
 {
     public $id;
     public $name;
     public $family;
     public $address;
+    
     public $atribute;
     
     protected $Task = [];
@@ -36,22 +38,66 @@ class User
         
         return self::$Instance;
     }
-    
-//    public function Current()
-//    {
-//        return $this -> id;
-//    }    
 
-    public function FakeOpen( $variable )
+    /*===========================*/
+    /*    ICommand interface     */
+    /*===========================*/
+    
+    public function Open()
+    {
+        ;
+    }
+
+    public function Close()
+    {
+        ;
+    }    
+    
+    public function Save()
+    {
+        ;
+    }    
+    
+    public function Create( $array )
+    {
+        $oiteratr = 0;
+        foreach ($array as $key => $value)
+        {
+            if ( !property_exists( $this , $key ) )
+            {
+                continue;
+            }
+            
+            $this -> $key = $value;
+            $oiteratr++;
+        }
+        
+        return ( $oiteratr == count( $array ) );
+    }
+    
+    public function Current()
+    {
+        return $this -> id;
+    }    
+
+    /*===========================*/
+    /*  End ICommand interface   */
+    /*===========================*/
+    
+    
+    public function FakeOpen(  )
     {
         $this -> id = (int)rand(0, 1000);
-        return ($this -> id == TRUE);
+        var_dump( $this -> id);
+        echo __CLASS__ , " : " , __METHOD__;
+        echo "<br />";
+        return ( $this -> id == TRUE );
     }
     
     
     public function Account()
     {
-        $this -> Account = new Account( $this );
+        $this -> Account = new Account( self :: Instance() );
         return $this -> Account;
     }
     

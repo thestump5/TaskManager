@@ -1,7 +1,6 @@
 <?php
 
 namespace User;
-use Database\Database;
 /**
  * Description of User
  *
@@ -21,7 +20,7 @@ class Account
     
     private static $Instance;
     
-    public function __construct( User $User = NULL )
+    public function __construct( User &$User = NULL )
     {
         $this -> User = $User;
         $this -> Post = &$_GET;
@@ -31,7 +30,7 @@ class Account
     {
         if ( empty( self::$Instance ) )
         {
-            self::$Instance = new Account(  );
+            self::$Instance = new Account( $this -> User );
         }
         
         return self::$Instance;
@@ -43,38 +42,29 @@ class Account
      */
     public function Check()
     {
-        return self :: Instance() -> IS_LOGGINED;
+        return $this -> IS_LOGGINED;
     }
 
     public function FakeOpen()
     {
-        $check = self :: Instance() -> Check();
-
-        if ( $check )
+        if ( $this -> Check() )
         {
             $this -> SetTemplate( "User_OpenedAccount" );
-            return $check;
         }
-        else if ( empty( $this -> Post ) )
+        else if ( !array_key_exists('login', $this -> Post) || 
+                !array_key_exists('pw', $this -> Post) )
         {
-            //echo "Невозможно открыть аккаунт: форма не передана";
-            //throw new \Exception("Невозможно открыть аккаунт: форма не передана");
-            $this -> SetTemplate( "User_OpenAccount" );
-        }
-        else if ( empty( $this -> Post['pw'] ) )
-        {
-            //echo "Невозможно открыть аккаунт: данные для открытия аккаунта не верны";
-            //throw new \Exception("Невозможно открыть аккаунт: данные для открытия аккаунта не верны");
             $this -> SetTemplate( "User_OpenAccount" );
         }
         
-        //Database :: Instance() -> CreateSQL( $this, $this -> User, $this -> Post );
         if ( empty( $this -> GetTemplate() ) )
         {
             $this -> SetTemplate( "User_Account" );
+            $this -> User -> FakeOpen();
+            $this -> IS_LOGGINED = true;
         }
-        
-        return $this -> IS_LOGGINED;// array( $this -> id, $this -> User -> name, $this -> User -> nic );
+     
+        return $this -> Check();
     }
     
     public function GetTemplate()

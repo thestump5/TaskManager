@@ -89,7 +89,7 @@ class Autoload
 
     private function autoload_interfaces( $class )
     {
-        $path = $this -> doc_root . '/../' . $class . '.interface.php';
+        $path = $this -> doc_root . '/../Helpers/Interface/' . $class . '.interface.php';
 
         $path = str_replace("\\", "/", $path);
 
