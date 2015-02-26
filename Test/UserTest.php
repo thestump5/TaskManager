@@ -34,6 +34,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
     function testCanUserHaveAccount()
     {
         $User = User :: Instance();
-        $this -> assertTrue( $User -> Account() instanceof Account );
+        $this -> assertInstanceOf( get_class( new Account( $User ) ), $User -> Account()    );
     }
 }
