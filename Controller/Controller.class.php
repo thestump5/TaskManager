@@ -33,7 +33,7 @@ class Controller
     
     private function Index() 
     {
-        View:: Instance() -> tpl = 'User_FormLogin';
+        View:: Instance() -> tpl = 'User_OpenAccount';
         View :: Instance() -> Output();
     }
     
@@ -43,7 +43,7 @@ class Controller
     
     private function UserLogin()
     {
-        if ( User :: Instance() -> Account() -> FakeOpen() )
+        if ( User :: Instance() -> Account() -> Open() )
         {
             $tpl = User :: Instance() -> Account() -> GetTemplate();
         }
@@ -65,9 +65,8 @@ class Controller
     
     private function UserSelect()
     {
-        if ( User :: Instance() -> Account() -> FakeOpen() )
+        if ( User :: Instance() -> Account() -> User -> Open() )
         {
-            User :: Instance() -> Account() -> User -> Open();
             $tpl = User :: Instance() -> Account() -> GetTemplate();
         }
 

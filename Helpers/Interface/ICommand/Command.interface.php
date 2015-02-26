@@ -18,5 +18,4 @@ interface Command
     public function Close();
     public function Save();
     public function Create( $array );
-    public function Current();    
 }

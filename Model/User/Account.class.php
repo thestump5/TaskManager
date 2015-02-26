@@ -1,12 +1,13 @@
 <?php
 
 namespace User;
+use ICommand\Command;
 /**
  * Description of User
  *
  * @author Максим
  */
-class Account 
+class Account implements Command
 {
     public $id;
     public $Role;
@@ -45,27 +46,48 @@ class Account
         return $this -> IS_LOGGINED;
     }
 
-    public function FakeOpen()
+    /**
+     * Implements command interface
+     */
+    
+    public function Open() //Test edition!
     {
         if ( $this -> Check() )
         {
             $this -> SetTemplate( "User_OpenedAccount" );
         }
-        else if ( !array_key_exists('login', $this -> Post) || 
-                !array_key_exists('pw', $this -> Post) )
-        {
-            $this -> SetTemplate( "User_OpenAccount" );
-        }
-        
-        if ( empty( $this -> GetTemplate() ) )
+//        else if ( !array_key_exists('login', $this -> Post) || 
+//                !array_key_exists('pw', $this -> Post) )
+//        {
+//            $this -> SetTemplate( "User_OpenAccount" );
+//        }
+        else 
         {
             $this -> SetTemplate( "User_Account" );
-            $this -> User -> FakeOpen();
             $this -> IS_LOGGINED = true;
         }
-     
+        
         return $this -> Check();
     }
+    
+    public function Close() 
+    {
+        ;
+    }
+    
+    public function Save() 
+    {
+        ;
+    }
+
+    public function Create( $field ) 
+    {
+        ;
+    }
+    
+    /**
+     * Account part
+     */
     
     public function GetTemplate()
     {

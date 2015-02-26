@@ -16,19 +16,26 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     function testCanReturnTemplate()
     {
         $Account = new Account( new User() );
-        $this -> assertNotEmpty( "Template" );
+        $Account -> SetTemplate( "Template" );
+        $this -> assertNotEmpty( $Account -> GetTemplate() );
     }
 
     function testCanSetTemplate()
     {
         $Account = new Account( new User() );
-        $Account -> SetTemplate( "Template" );
-        $this -> assertNotEmpty( $Account -> GetTemplate() );
+        $this -> assertNotEmpty( $Account -> SetTemplate( "Template" ) );
     }
     
     function testCanCheckEqualseAccountUser()
     {
         $Account = new Account( new User() );
         $this -> assertInternalType( 'bool', $Account -> Check() );
+    }
+    
+    function testcanOpenAccount()
+    {
+        $Account = new Account( new User() );
+        $this -> assertNotEmpty( $Account -> GetTemplate() );
+        $this -> assertTrue( $Account -> Open() );
     }
 }
