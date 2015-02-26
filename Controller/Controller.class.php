@@ -27,57 +27,59 @@ class Controller
         }
         else if ( is_callable( array($this, 'Index' ) ) )
         {
-            $this -> Index(  );
+            $this -> Index();
         }
     }
     
-    private function Index(  ) 
+    private function Index() 
     {
         View:: Instance() -> tpl = 'User_FormLogin';
-        View :: Instance() -> Output(  );
+        View :: Instance() -> Output();
     }
     
     /*
      * User section
      */
     
-    private function UserLogin(  )
+    private function UserLogin()
     {
-        if ( User :: Instance() -> Account() -> FakeOpen(  ) )
+        if ( User :: Instance() -> Account() -> FakeOpen() )
         {
             $tpl = User :: Instance() -> Account() -> GetTemplate();
         }
         
         View:: Instance() -> tpl = empty($tpl) ? "User_OpenAccount" : $tpl;
-        View :: Instance() -> Output(  );
+        View :: Instance() -> Output();
     }
     
     private function UserLogout()
     {
-        if ( User :: Instance() -> Account() -> Close(  ) )
+        if ( User :: Instance() -> Account() -> Close() )
         {
             $tpl = User :: Instance() -> Account() -> GetTemplate();
         }
         
         View:: Instance() -> tpl = empty($tpl) ? "User_OpenAccount" : $tpl;
-        View :: Instance() -> Output(  );        
+        View :: Instance() -> Output();
     }
     
     private function UserSelect()
     {
-        if ( User :: Instance() -> Open(  ) )
+        if ( User :: Instance() -> Account() -> FakeOpen() )
         {
+            User :: Instance() -> Account() -> User -> Open();
             $tpl = User :: Instance() -> Account() -> GetTemplate();
         }
 
-        View:: Instance() -> tpl = empty($tpl) ? "None_Empty" : $tpl;
-        View :: Instance() -> Output(  );        
+        View:: Instance() -> tpl = empty( $tpl ) ? "None_Empty" : $tpl;
+        View :: Instance() -> Output(  );
     }
     
     private function UserAuthentificate()
     {
         ;
     }
+    
     /**
      * Project section
      */
