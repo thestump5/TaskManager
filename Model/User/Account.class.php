@@ -86,8 +86,13 @@ class Account implements Command
     }
     
     /**
-     * Account part
+     * Self account part
      */
+    
+    public function GetClass()
+    {
+        return __CLASS__ . ":"  . __METHOD__;
+    }
     
     public function GetTemplate()
     {

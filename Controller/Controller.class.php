@@ -47,7 +47,6 @@ class Controller
         {
             $tpl = User :: Instance() -> Account() -> GetTemplate();
         }
-        
         View:: Instance() -> tpl = empty($tpl) ? "User_OpenAccount" : $tpl;
         View :: Instance() -> Output();
     }
