@@ -29,7 +29,7 @@ class User implements Command
     
     public static $Instance;
     
-    public function Instance()
+    public function &Instance()
     {
         if ( empty( self::$Instance ) )
         {
@@ -97,7 +97,8 @@ class User implements Command
     
     public function Account()
     {
-        $this -> Account = new Account( self :: Instance() );
+        $this -> Account = new Account();
+        $this -> Account -> User = self :: Instance();
         return $this -> Account;
     }
     

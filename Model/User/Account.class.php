@@ -21,9 +21,8 @@ class Account implements Command
     
     private static $Instance;
     
-    public function __construct( User &$User = NULL )
+    public function __construct()
     {
-        $this -> User = $User;
         $this -> Post = &$_GET;
     }
 
