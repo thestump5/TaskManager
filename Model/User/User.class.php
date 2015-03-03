@@ -1,20 +1,13 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace User;
-use ICommand\Command;
-use Repositoriy\Repositoriy;
+
 /**
  * Description of User
  *
  * @author Максим
  */
-class User implements Command
+class User
 {
     public $id;
     public $name;
@@ -25,7 +18,8 @@ class User implements Command
     
     protected $Task = [];
     protected $Project = [];
-    protected $Account;
+    
+    //private $Account;
     
     public static $Instance;
     
@@ -50,7 +44,14 @@ class User implements Command
 
     public function Close()
     {
-        ;
+        foreach ( $this as $property )
+        {
+            unset( $property );
+        }
+        
+        self :: $Instance = NULL;
+        
+        return TRUE;
     }    
     
     public function Save()
@@ -72,7 +73,7 @@ class User implements Command
             $oiteratr++;
         }
         
-        return ( $oiteratr == count( $array ) );
+        return ( $oiteratr == count( $array ) ); // ?
     }
     
     public function Current()
@@ -95,11 +96,16 @@ class User implements Command
     }
     
     
-    public function Account()
+    public function Account( $Account = NULL )
     {
-        $this -> Account = new Account();
-        $this -> Account -> User = self :: Instance();
-        return $this -> Account;
+        if ( empty( $Account ) )
+        {
+            $Account = new Account();
+        }
+        
+        $Account -> User = &self :: Instance();
+        
+        return $Account;
     }
     
 //    public function Create( $name, $family, $nic, $address )

@@ -1,16 +1,17 @@
 <?php
 
 namespace User;
-use ICommand\Command;
+use Repositoriy\Repositoriy;
 /**
  * Description of User
  *
  * @author Максим
  */
-class Account implements Command
+class Account
 {
     public $id;
     public $Role;
+    
     public $User;
     
     private $Post;
@@ -30,19 +31,21 @@ class Account implements Command
     {
         if ( empty( self::$Instance ) )
         {
-            self::$Instance = new Account( $this -> User );
+            self::$Instance = new Account();
         }
         
         return self::$Instance;
     }    
+    
     /**
      * Check()
-     * Check weather fo login account
-     * @return bool IS_LOGGINED
+     * Check state account
+     * @return bool
      */
+    
     public function Check()
     {
-        return $this -> IS_LOGGINED;
+        return ( TRUE === $this -> IS_LOGGINED );
     }
 
     /**
@@ -66,12 +69,33 @@ class Account implements Command
             $this -> IS_LOGGINED = true;
         }
         
+        if ( !empty( $this -> User ) )
+        {
+            $this -> User -> Create( $this -> Post );
+            var_dump($this);
+        }
+        
         return $this -> Check();
     }
     
     public function Close() 
     {
-        ;
+        $state1 = Repositoriy :: Instance() -> Close( "AC_ALL");
+        $state2 = $this -> User -> Close();
+        
+        foreach ( $this as $property )
+        {
+            if ( typeof($property) !== bool ) 
+            { 
+                unset( $property );
+            } 
+            else 
+            { 
+                $property = FALSE;
+            }
+        }
+        
+        return ( TRUE === ( $state1 == $state2 ) );
     }
     
     public function Save() 

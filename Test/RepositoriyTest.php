@@ -1,7 +1,6 @@
 <?php
 
 namespace Repositoriy;
-require_once '/../Helpers/Interface/ICommand/Command.interface.php';
 require_once '/../Model/User/User.class.php';
 use User\User;
 /**

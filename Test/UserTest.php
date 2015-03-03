@@ -13,6 +13,16 @@ require_once '/../Model/User/Account.class.php';
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
+    function testUserIsClose()
+    {
+        $User = new User();
+        $User -> name = 'name';
+        $this -> assertNotEmpty( $User -> name );
+        $this -> assertTrue( $User -> Close() );
+        $this -> assertEmpty( 'name', $User -> name );
+        
+    }  
+    
     function testCanCreateSingleUser()
     {
         $User = User :: Instance();
@@ -34,6 +44,17 @@ class UserTest extends \PHPUnit_Framework_TestCase
     function testCanUserHaveAccount()
     {
         $User = User :: Instance();
-        $this -> assertInstanceOf( get_class( new Account( $User ) ), $User -> Account()    );
+        $this -> assertInstanceOf( get_class( new Account() ), $User -> Account()    );
     }
+    
+    function testCanUserChangeAccount()
+    {
+        $User1 = new User();
+        $User2 = new User();
+        
+        $this -> assertInstanceOf( get_class( new Account() ), $User1 -> Account()    );
+        $this -> assertInstanceOf( get_class( new Account() ), $User2 -> Account()    );
+        
+        $this -> assertEquals( $User2 -> Account(), $User1 -> Account( $User2 -> Account() ) );
+    }    
 }
