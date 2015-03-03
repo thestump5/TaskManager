@@ -48,7 +48,7 @@ class Account
     
     public function Open() //Test edition!
     {
-        if ( $this -> Check() ) return FALSE;
+        if ( $this -> Check() ) return TRUE;
         $this -> SetTemplate( "User_Account" );
         return ( FALSE == Repositoriy :: Instance() -> Open( $this ));
     }
@@ -62,7 +62,7 @@ class Account
     
     public function Close() 
     {
-        if ( !$this -> Check() ) return FALSE;
+        if ( !$this -> Check() ) return TRUE;
         $this -> SetTemplate( "User_OpenAccount" );
         return ( FALSE == Repositoriy :: Instance() -> Close( $this ) );
     }
