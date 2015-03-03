@@ -54,13 +54,8 @@ class Controller
     
     private function UserLogout()
     {
-        $User = User :: Instance() -> Account();
-        if ( $User -> Close() )
-        {
-            $tpl = $User -> GetTemplate();
-        }
-        
-        View:: Instance() -> tpl = empty($tpl) ? "None_Empty" : $tpl;
+        User :: Instance() -> Account() -> Close();
+        View:: Instance() -> tpl = empty($tpl) ? "User_OpenAccount" : $tpl;
         View :: Instance() -> Output();
     }
     
