@@ -9,5 +9,6 @@
             <br />
             <input type="submit" style="margin-top:10px" />
         </form>
+        <a href="?action=UserCreate">Create</a>
     </body>
 </html>

@@ -67,7 +67,7 @@ class Repositoriy {
     {
         if ( !empty( $obj -> User ) )
         {
-            $obj -> User -> Create( ['name' => 'name'] );
+            $obj -> User -> Create( $this -> Post );
         }
         return FALSE;
     }    

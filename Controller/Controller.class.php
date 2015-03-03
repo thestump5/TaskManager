@@ -73,7 +73,7 @@ class Controller
         }
 
         View:: Instance() -> tpl = empty( $tpl ) ? "None_Empty" : $tpl;
-        View :: Instance() -> Output(  );
+        View :: Instance() -> Output();
     }    
     
     private function UserSelect()

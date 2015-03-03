@@ -72,8 +72,8 @@ class User
             $this -> $key = $value;
             $oiteratr++;
         }
-        
-        return ( $oiteratr == count( $array ) ); // ?
+
+        return ( $oiteratr == ( count( $array ) - 1 ) ); // ?
     }
     
     public function Current()
