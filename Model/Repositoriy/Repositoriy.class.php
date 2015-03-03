@@ -17,6 +17,8 @@ class Repositoriy {
     
     public static $Instance;
     
+    public $Post;
+    
     function __construct() 
     {
         if ( empty( $this -> Post ) )
@@ -49,7 +51,7 @@ class Repositoriy {
     public function Close( &$obj )
     {
         //close db connection and post array
-        unset( self :: Instance() -> Post );
+        unset( $this -> Post );
         
         //Unset obj
         unset( $obj );

@@ -28,8 +28,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $User = User :: Instance();
         
-        $this -> assertTrue( $User -> Create( ['id'=>'id', 'name'=>'name', 
-                                                'family' => 'family', 
+        $this -> assertTrue( $User -> Create( [ 'action'=>'test', 'id'=>'id', 
+                                                'name'=>'name', 'family' => 'family', 
                                                 'address'=>'address', 
                                                 'atribute'=>[1]] ) );
         $this -> assertEquals( 'name', $User -> name );
