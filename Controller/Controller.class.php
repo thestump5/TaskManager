@@ -43,9 +43,10 @@ class Controller
     
     private function UserLogin()
     {
-        if ( User :: Instance() -> Account() -> Open() )
+        $User = User :: Instance() -> Account();
+        if ( $User -> Open() )
         {
-            $tpl = User :: Instance() -> Account() -> GetTemplate();
+            $tpl = $User -> GetTemplate();
         }
         View:: Instance() -> tpl = empty($tpl) ? "User_OpenAccount" : $tpl;
         View :: Instance() -> Output();
@@ -53,20 +54,34 @@ class Controller
     
     private function UserLogout()
     {
-        if ( User :: Instance() -> Account() -> Close() )
+        $User = User :: Instance() -> Account();
+        if ( $User -> Close() )
         {
-            $tpl = User :: Instance() -> Account() -> GetTemplate();
+            $tpl = $User -> GetTemplate();
         }
         
-        View:: Instance() -> tpl = empty($tpl) ? "User_OpenAccount" : $tpl;
+        View:: Instance() -> tpl = empty($tpl) ? "None_Empty" : $tpl;
         View :: Instance() -> Output();
     }
     
+    private function UserCreate()
+    {
+        $User = User :: Instance() -> Account();
+        if ( $User -> Create() ) 
+        {
+            $tpl = $User -> GetTemplate();
+        }
+
+        View:: Instance() -> tpl = empty( $tpl ) ? "None_Empty" : $tpl;
+        View :: Instance() -> Output(  );
+    }    
+    
     private function UserSelect()
     {
-        if ( User :: Instance() -> Account() -> User -> Open() )
+        if ( ($User = ( User :: Instance() -> Account( ( new User() ) -> Account() ) ) ) )
         {
-            $tpl = User :: Instance() -> Account() -> GetTemplate();
+            $User -> Open();
+            $tpl = $User -> GetTemplate();
         }
 
         View:: Instance() -> tpl = empty( $tpl ) ? "None_Empty" : $tpl;

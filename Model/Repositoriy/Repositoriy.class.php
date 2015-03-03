@@ -17,6 +17,14 @@ class Repositoriy {
     
     public static $Instance;
     
+    function __construct() 
+    {
+        if ( empty( $this -> Post ) )
+        {
+            $this -> Post = &$_GET;//$_POST!
+        }
+    }
+    
     public static function Instance()  
     {
        if ( empty( self :: $Instance ))
@@ -27,13 +35,40 @@ class Repositoriy {
        return self :: $Instance;
     }
     
-    public function Open( &$obj )
+    public function Open( &$obj, &$fileds = [] )
     {
+        $obj -> id = 1;
+        if ( empty( $fileds ) )
+        {
+            $fileds = [];
+        }
+        
         return FALSE;
+    }
+
+    public function Close( &$obj )
+    {
+        //close db connection and post array
+        unset( self :: Instance() -> Post );
+        
+        //Unset obj
+        unset( $obj );
+        
+        return ( TRUE == !empty( $obj ) );
     }
     
     public function Save( &$obj )
     {
+        $obj -> id = 1;
         return FALSE;
-    }
+    }    
+    
+    public function Create( &$obj )
+    {
+        if ( !empty( $obj -> User ) )
+        {
+            $obj -> User -> Create( ['name' => 'name'] );
+        }
+        return FALSE;
+    }    
 }

@@ -6,9 +6,10 @@ namespace User;
  *
  * @author Максим
  */
-require_once '/../Helpers/Interface/ICommand/Command.interface.php';
+
 require_once '/../Model/Repositoriy/Repositoriy.class.php';
 require_once '/../Model/User/User.class.php';
+require_once '/../Model/User/Role.class.php';
 require_once '/../Model/User/Account.class.php';
 
 class UserTest extends \PHPUnit_Framework_TestCase
@@ -19,7 +20,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $User -> name = 'name';
         $this -> assertNotEmpty( $User -> name );
         $this -> assertTrue( $User -> Close() );
-        $this -> assertEmpty( 'name', $User -> name );
+        $this -> assertObjectHasAttribute( 'name', $User );
         
     }  
     

@@ -1,6 +1,7 @@
 <?php
 
 namespace User;
+use User\Role;
 use Repositoriy\Repositoriy;
 /**
  * Description of User
@@ -10,31 +11,21 @@ use Repositoriy\Repositoriy;
 class Account
 {
     public $id;
+    public $attribute; //not used
+    
     public $Role;
-    
     public $User;
-    
-    private $Post;
     
     public $tpl = NULL;
     
-    private $IS_LOGGINED = false;
+    public $IS_LOGGINED = false;
     
-    private static $Instance;
-    
-    public function __construct()
+    function __construct() 
     {
-        $this -> Post = &$_GET;
-    }
-
-    public function Instance()
-    {
-        if ( empty( self::$Instance ) )
+        if ( empty( $this -> Role ) )
         {
-            self::$Instance = new Account();
+            $this -> Role = new Role();
         }
-        
-        return self::$Instance;
     }    
     
     /**
@@ -48,82 +39,78 @@ class Account
         return ( TRUE === $this -> IS_LOGGINED );
     }
 
+    
     /**
-     * Implements command interface
+     * Open()
+     * Call to repositoriy for get data who's saved in db early
+     * @return bool wheather is open
      */
     
     public function Open() //Test edition!
     {
-        if ( $this -> Check() )
-        {
-            $this -> SetTemplate( "User_OpenedAccount" );
-        }
-//        else if ( !array_key_exists('login', $this -> Post) || 
-//                !array_key_exists('pw', $this -> Post) )
-//        {
-//            $this -> SetTemplate( "User_OpenAccount" );
-//        }
-        else 
-        {
-            $this -> SetTemplate( "User_Account" );
-            $this -> IS_LOGGINED = true;
-        }
-        
-        if ( !empty( $this -> User ) )
-        {
-            $this -> User -> Create( $this -> Post );
-            var_dump($this);
-        }
-        
-        return $this -> Check();
+        if ( $this -> Check() ) return FALSE;
+        $this ->SetTemplate( "User_Account" );
+        return ( FALSE == Repositoriy :: Instance() -> Open( $this ));
     }
+
+    /**
+     * Close()
+     * Call to repositoriy for close connection's
+     * and posted data.
+     * @return bool wheather is data closed
+     */
     
     public function Close() 
     {
-        $state1 = Repositoriy :: Instance() -> Close( "AC_ALL");
-        $state2 = $this -> User -> Close();
-        
-        foreach ( $this as $property )
-        {
-            if ( typeof($property) !== bool ) 
-            { 
-                unset( $property );
-            } 
-            else 
-            { 
-                $property = FALSE;
-            }
-        }
-        
-        return ( TRUE === ( $state1 == $state2 ) );
-    }
-    
-    public function Save() 
-    {
-        ;
-    }
-
-    public function Create( $field ) 
-    {
-        ;
+        if ( !$this -> Check() ) return FALSE;
+        $this ->SetTemplate( "User_OpenAccount" );
+        return ( FALSE == Repositoriy :: Instance() -> Close( $this ) );
     }
     
     /**
-     * Self account part
+     * Save()
+     * Call to repositoriy for save user data
+     * @return bool wheather is data saved
      */
     
-    public function GetClass()
+    public function Save() 
     {
-        return __CLASS__ . ":"  . __METHOD__;
+        $this ->SetTemplate( "User_OpenedAccount" );
+        return ( FALSE == Repositoriy :: Instance() -> Save( $this ) );
     }
+
+    /**
+     * Create()
+     * Call to repositoriy for fill data
+     * @return bool wheather is account created
+     */
+    
+    public function Create() 
+    {
+        $this ->SetTemplate( "User_OpenedAccount" );
+        return ( FALSE == Repositoriy :: Instance() -> Create( $this ) );
+    }
+    
+    /**
+     * GetTemplate()
+     * return is setting class template
+     * @return string
+     */
+    
     
     public function GetTemplate()
     {
-        return self :: Instance() -> tpl;
+        return $this -> tpl;
     }
 
+    /**
+     * SetTemplate()
+     * Set the class template
+     * @return string template
+     */
+    
     public function SetTemplate( $template )
     {
-        return ( self :: Instance() -> tpl = $template );
+        return ( $this -> tpl = $template );
     }
 }

@@ -59,7 +59,7 @@ class User
         ;
     }    
     
-    public function Create( $array )
+    public function Create( array $array )
     {
         $oiteratr = 0;
         foreach ($array as $key => $value)
