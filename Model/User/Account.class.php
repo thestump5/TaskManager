@@ -49,7 +49,7 @@ class Account
     public function Open() //Test edition!
     {
         if ( $this -> Check() ) return FALSE;
-        $this ->SetTemplate( "User_Account" );
+        $this -> SetTemplate( "User_Account" );
         return ( FALSE == Repositoriy :: Instance() -> Open( $this ));
     }
 
@@ -63,7 +63,7 @@ class Account
     public function Close() 
     {
         if ( !$this -> Check() ) return FALSE;
-        $this ->SetTemplate( "User_OpenAccount" );
+        $this -> SetTemplate( "User_OpenAccount" );
         return ( FALSE == Repositoriy :: Instance() -> Close( $this ) );
     }
     
@@ -75,7 +75,7 @@ class Account
     
     public function Save() 
     {
-        $this ->SetTemplate( "User_OpenedAccount" );
+        $this -> SetTemplate( "User_OpenedAccount" );
         return ( FALSE == Repositoriy :: Instance() -> Save( $this ) );
     }
 
@@ -87,7 +87,7 @@ class Account
     
     public function Create() 
     {
-        $this ->SetTemplate( "User_CreateAccount" );
+        $this -> SetTemplate( "User_CreateAccount" );
         return ( FALSE == Repositoriy :: Instance() -> Create( $this ) );
     }
     
