@@ -37,6 +37,14 @@ class Controller
         View :: Instance() -> Output();
     }
     
+    /**
+     * Test function for call class method
+     */
+    private function Call()
+    {
+        ;
+    }
+    
     /*
      * User section
      */

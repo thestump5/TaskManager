@@ -24,7 +24,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this -> assertTrue( $User -> Fill( [ 'action'=>'test', 'id'=>'id', 
                                                 'name'=>'name', 'family' => 'family', 
                                                 'address'=>'address', 
-                                                'atribute'=>[1]] ) );
+                                                'attribute'=>[1]] ) );
         $this -> assertEquals( 'name', $User -> name );
     }
 
@@ -62,6 +62,14 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this -> assertEquals( $User2 -> Account(), $User1 -> Account( $User2 -> Account() ) );
     }    
     
+    function testCanUserOpenProject()
+    {
+        $User = User :: Instance();
+        $pid = [ 'id'=>1, 'name'=>'BestProject' ];
+        $this -> assertInstanceOf( get_class( new Project() ), $User -> Project( $pid ) );
+    }
+ 
+    
     function testCanAcceptedProjectPidInLocalPool()
     {
         $User = User :: Instance();
@@ -73,4 +81,16 @@ class UserTest extends \PHPUnit_Framework_TestCase
         
         $this -> assertEquals( 5, count( $User -> pidproject ) );
     }
+    
+    function testCanAddAttributeInPool()
+    {
+        $User = User :: Instance();
+        $attribute = [];
+        for($i = 0; $i < 5; $i++)
+        {
+            $this -> assertTrue( $User -> SetAttribute( $attribute = [$i, (float)$i / 2] ) );
+        }
+        
+        $this -> assertContains( $attribute, $User -> attribute );
+    }    
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace User;
-
+use Project\Project;
 /**
  * Description of User
  * @author Максим
@@ -14,7 +14,7 @@ class User
     public $family;
     public $address;
     
-    public $atribute;
+    public $attribute = [];
     public $pidproject = [];
     
     protected $Task = [];   
@@ -42,7 +42,7 @@ class User
             }
             
             $this -> $key = $value;
-            $oiteratr++;
+            ++$oiteratr;
         }
 
         return ( $oiteratr == ( count( $array ) - 1 ) ); // ?
@@ -60,10 +60,24 @@ class User
         return $Account;
     }
     
+    public function Project( array $pid )
+    {
+        $Project = Project :: Instance();
+        $Project -> Open( $pid );
+        return $Project;
+    }    
+    
     public function AcceptProjectPid( \Project\Project $pid )
     {
         $count = count( $this -> pidproject );
         $ncount = array_push( $this -> pidproject, get_object_vars($pid) );
+        return ( ( $count + 1 ) == $ncount );
+    }
+
+    public function SetAttribute( array $attribute )
+    {
+        $count = count( $this -> attribute );
+        $ncount = array_push( $this -> attribute, $attribute );
         return ( ( $count + 1 ) == $ncount );
     }
 }

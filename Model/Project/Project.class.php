@@ -16,7 +16,7 @@ class Project
 
     private $Task;
     
-    public static $Instance;
+    private static $Instance;
     
     public function Instance()
     {
@@ -27,12 +27,32 @@ class Project
         
         return self::$Instance;
     }
-// 
-//    public function Open()
-//    {
-//        Repositoriy :: Instance() -> Open( $this );
-//        return TRUE;
-//    }
+ 
+    public function Open( $pid )
+    {
+        $this -> Fill( $pid );
+        return ( FALSE == Repositoriy :: Instance() -> Open( $this ));
+    }
+    
+    //Think about this
+    public function Fill( array $array )
+    {
+        $oiteratr = 0;
+        foreach ($this as $key => $value)
+        {
+            if ( array_search( $key , $array ) )
+            {
+                $this -> $key = $array[ $key ];
+                ++$oiteratr;
+            }
+            else
+            {
+                $this -> $key = NULL;
+            }
+        }
+
+        return ( count( $array ) == $oiteratr ); // ?
+    }     
 //    
 //    public function Close()
 //    {
