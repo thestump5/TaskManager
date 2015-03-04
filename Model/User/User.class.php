@@ -74,10 +74,19 @@ class User
         return ( ( $count + 1 ) == $ncount );
     }
 
-    public function SetAttribute( array $attribute )
+    public function DisclaimeProjectPid( \Project\Project $pid )
     {
-        $count = count( $this -> attribute );
-        $ncount = array_push( $this -> attribute, $attribute );
-        return ( ( $count + 1 ) == $ncount );
+        $count = count( $this -> pidproject );
+        if ( ( $key = array_search( get_object_vars( $pid ), $this -> pidproject ) ) )
+        {
+            unset( $this -> pidproject[ $key ] );
+        }
+        return ( ( $count - 1 ) == ( count( $this -> pidproject ) ) );
     }
+//    public function SetAttribute( array $attribute )
+//    {
+//        $count = count( $this -> attribute );
+//        $ncount = array_push( $this -> attribute, $attribute );
+//        return ( ( $count + 1 ) == $ncount );
+//    }
 }

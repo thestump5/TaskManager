@@ -19,7 +19,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 {
     function testCanFillDataSingleUser()
     {
-        $User = User :: Instance();
+        $User = new User();
         
         $this -> assertTrue( $User -> Fill( [ 'action'=>'test', 'id'=>'id', 
                                                 'name'=>'name', 'family' => 'family', 
@@ -47,7 +47,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     
     function testCanUserHaveAccount()
     {
-        $User = User :: Instance();
+        $User = new User();
         $this -> assertInstanceOf( get_class( new Account() ), $User -> Account()    );
     }
     
@@ -64,7 +64,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     
     function testCanUserOpenProject()
     {
-        $User = User :: Instance();
+        $User = new User();
         $pid = [ 'id'=>1, 'name'=>'BestProject' ];
         $this -> assertInstanceOf( get_class( new Project() ), $User -> Project( $pid ) );
     }
@@ -72,25 +72,34 @@ class UserTest extends \PHPUnit_Framework_TestCase
     
     function testCanAcceptedProjectPidInLocalPool()
     {
-        $User = User :: Instance();
+        $User = new User();
         for($i = 0; $i < 5; $i++)
         {
             $Project = new Project();
             $this -> assertTrue( $User -> AcceptProjectPid( $Project ) );
+            unset( $Project );
         }
         
         $this -> assertEquals( 5, count( $User -> pidproject ) );
     }
     
-    function testCanAddAttributeInPool()
+    function testCanDisclaimeProjectPidFromLocalPool()
     {
-        $User = User :: Instance();
-        $attribute = [];
-        for($i = 0; $i < 5; $i++)
+        $User = new User();
+        $UA = [];
+        for($i = 1; $i <= 5; $i++)
         {
-            $this -> assertTrue( $User -> SetAttribute( $attribute = [$i, (float)$i / 2] ) );
+            $Project = new Project();
+            $Project -> Fill( ['id'=>$i, 'name'=>(float)$i/2] );
+            $UA[] = $Project;
+            $this -> assertTrue( $User -> AcceptProjectPid( $Project ) );
+            unset( $Project );
         }
-        
-        $this -> assertContains( $attribute, $User -> attribute );
-    }    
+        for($i = 1; $i <= 2; $i++)
+        {
+            $this -> assertTrue( $User -> DisclaimeProjectPid( array_pop( $UA ) ) );
+        }
+        $this -> assertEquals( 3, count( $User -> pidproject ) );
+        unset( $UA );
+    }  
 }

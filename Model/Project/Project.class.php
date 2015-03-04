@@ -40,7 +40,7 @@ class Project
         $oiteratr = 0;
         foreach ($this as $key => $value)
         {
-            if ( array_search( $key , $array ) )
+            if ( array_key_exists( $key , $array ) )
             {
                 $this -> $key = $array[ $key ];
                 ++$oiteratr;
@@ -50,7 +50,7 @@ class Project
                 $this -> $key = NULL;
             }
         }
-
+        
         return ( count( $array ) == $oiteratr ); // ?
     }     
 //    
