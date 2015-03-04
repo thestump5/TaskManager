@@ -4,9 +4,9 @@ namespace User;
 
 /**
  * Description of User
- *
  * @author Максим
  */
+
 class User
 {
     public $id;
@@ -15,51 +15,23 @@ class User
     public $address;
     
     public $atribute;
+    public $pidproject = [];
     
-    protected $Task = [];
-    protected $Project = [];
-    
-    //private $Account;
+    protected $Task = [];   
     
     public static $Instance;
     
-    public function &Instance()
+    public static function Instance()  
     {
-        if ( empty( self::$Instance ) )
-        {
-            self::$Instance = new User();
-        }
-        
-        return self::$Instance;
-    }
-
-    /*===========================*/
-    /*    ICommand interface     */
-    /*===========================*/
-    
-    public function Open()
-    {
-        ;
-    }
-
-    public function Close()
-    {
-        foreach ( $this as $property )
-        {
-            unset( $property );
-        }
-        
-        self :: $Instance = NULL;
-        
-        return TRUE;
+       if ( empty( self :: $Instance ))
+       {
+           self :: $Instance = new User();
+       }
+       
+       return self :: $Instance;
     }    
     
-    public function Save()
-    {
-        ;
-    }    
-    
-    public function Create( array $array )
+    public function Fill( array $array )
     {
         $oiteratr = 0;
         foreach ($array as $key => $value)
@@ -74,28 +46,8 @@ class User
         }
 
         return ( $oiteratr == ( count( $array ) - 1 ) ); // ?
-    }
-    
-    public function Current()
-    {
-        return $this -> id;
-    }    
+    } 
 
-    /*===========================*/
-    /*  End ICommand interface   */
-    /*===========================*/
-    
-    
-    public function FakeOpen(  )
-    {
-        $this -> id = (int)rand(0, 1000);
-        var_dump( $this -> id);
-        echo __CLASS__ , " : " , __METHOD__;
-        echo "<br />";
-        return ( $this -> id == TRUE );
-    }
-    
-    
     public function Account( $Account = NULL )
     {
         if ( empty( $Account ) )
@@ -108,19 +60,10 @@ class User
         return $Account;
     }
     
-//    public function Create( $name, $family, $nic, $address )
-//    {
-//        $this -> name = $name;
-//        $this -> family = $family;
-//        $this -> nic = $nic;
-//        $this -> address = $address;
-//        
-//        return TRUE;
-//    }
-    
-//    public function Save()
-//    {
-//        Repositoriy :: Instance() -> Save ( $this );
-//        return ($this -> id == TRUE);
-//    }
+    public function AcceptProjectPid( \Project\Project $pid )
+    {
+        $count = count( $this -> pidproject );
+        $ncount = array_push( $this -> pidproject, get_object_vars($pid) );
+        return ( ( $count + 1 ) == $ncount );
+    }
 }

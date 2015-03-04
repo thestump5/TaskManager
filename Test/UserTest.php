@@ -1,6 +1,7 @@
 <?php
 
 namespace User;
+use Project\Project;
 /**
  * Description of Test_CanTaskWorking
  *
@@ -12,35 +13,37 @@ require_once '/../Model/User/User.class.php';
 require_once '/../Model/User/Role.class.php';
 require_once '/../Model/User/Account.class.php';
 
+require_once '/../Model/Project/Project.class.php';
+
 class UserTest extends \PHPUnit_Framework_TestCase
 {
-    function testUserIsClose()
-    {
-        $User = new User();
-        $User -> name = 'name';
-        $this -> assertNotEmpty( $User -> name );
-        $this -> assertTrue( $User -> Close() );
-        $this -> assertObjectHasAttribute( 'name', $User );
-        
-    }  
-    
-    function testCanCreateSingleUser()
+    function testCanFillDataSingleUser()
     {
         $User = User :: Instance();
         
-        $this -> assertTrue( $User -> Create( [ 'action'=>'test', 'id'=>'id', 
+        $this -> assertTrue( $User -> Fill( [ 'action'=>'test', 'id'=>'id', 
                                                 'name'=>'name', 'family' => 'family', 
                                                 'address'=>'address', 
                                                 'atribute'=>[1]] ) );
         $this -> assertEquals( 'name', $User -> name );
     }
 
-    function testCanReturnCurrentIdSingleUser()
-    {
-        $User = User :: Instance();
-        $User -> id = 1;
-        $this -> assertTrue( ( true == $User -> Current() ) );
-    }
+//    function testUserIsClose()
+//    {
+//        $User = new User();
+//        $User -> name = 'name';
+//        $this -> assertNotEmpty( $User -> name );
+//        $this -> assertTrue( $User -> Close() );
+//        $this -> assertObjectHasAttribute( 'name', $User );
+//        
+//    } 
+    
+//    function testCanReturnCurrentIdSingleUser()
+//    {
+//        $User = User :: Instance();
+//        $User -> id = 1;
+//        $this -> assertTrue( ( true == $User -> Current() ) );
+//    }
     
     function testCanUserHaveAccount()
     {
@@ -58,4 +61,16 @@ class UserTest extends \PHPUnit_Framework_TestCase
         
         $this -> assertEquals( $User2 -> Account(), $User1 -> Account( $User2 -> Account() ) );
     }    
+    
+    function testCanAcceptedProjectPidInLocalPool()
+    {
+        $User = User :: Instance();
+        for($i = 0; $i < 5; $i++)
+        {
+            $Project = new Project();
+            $this -> assertTrue( $User -> AcceptProjectPid( $Project ) );
+        }
+        
+        $this -> assertEquals( 5, count( $User -> pidproject ) );
+    }
 }

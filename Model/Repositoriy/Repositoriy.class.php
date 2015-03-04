@@ -51,7 +51,7 @@ class Repositoriy {
     public function Close( &$obj )
     {
         //close db connection and post array
-        unset( $this -> Post );
+        /*unset( $this -> Post );*/
         
         //Unset obj
         unset( $obj );
@@ -69,7 +69,7 @@ class Repositoriy {
     {
         if ( !empty( $obj -> User ) )
         {
-            $obj -> User -> Create( $this -> Post );
+            $obj -> User -> Fill( $this -> Post );
         }
         return FALSE;
     }    

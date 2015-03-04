@@ -41,7 +41,8 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     {
         $Account = new Account();
         $Account -> User = new User();
-        $this -> assertTrue( $Account -> Create( ['name'=>'name'] ) );
+        $_POST['name'] = 'name';
+        $this -> assertTrue( $Account -> Create() );
     }    
     
     function testCanCheckEqualseAccountUser()
