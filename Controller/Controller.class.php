@@ -3,6 +3,7 @@
 namespace Controller;
 use View\View;
 use User\User;
+use Project\Project;
 /**
  * Description of Controller
  *

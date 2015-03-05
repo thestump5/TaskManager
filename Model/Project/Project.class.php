@@ -14,7 +14,7 @@ class Project
     public $id;
     public $name;
 
-    private $Task;
+    public $Task = [];
     
     private static $Instance;
     
@@ -31,7 +31,13 @@ class Project
     public function Open( $pid )
     {
         $this -> Fill( $pid );
-        return ( FALSE == Repositoriy :: Instance() -> Open( $this ));
+        return ( FALSE == Repositoriy :: Instance() -> Open( $this ) );
+    }
+
+    public function Close( $pid )
+    {
+        $this -> Fill( $pid );
+        return ( FALSE == Repositoriy :: Instance() -> Close( $this ) );
     }
     
     //Think about this
@@ -52,7 +58,24 @@ class Project
         }
         
         return ( count( $array ) == $oiteratr ); // ?
-    }     
+    }  
+    
+    public function SetTask( $Task )
+    {
+        $count = count( $this -> Task );
+        $ncount = array_push( $this -> Task, $Task );
+        return ( ( $count + 1 ) == $ncount );
+    }
+
+    public function MoveTask( $Task )
+    {
+        $count = count( $this -> Task );
+        if ( TRUE !== ( $key = array_search( $Task, $this -> Task ) ) )
+        {
+            unset( $this -> Task[ $key ] );
+        }
+        return ( ( $count - 1 ) == ( count( $this -> Task ) ) );
+    }    
 //    
 //    public function Close()
 //    {
