@@ -26,8 +26,14 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
         $pid = [ 'id'=>1, 'name'=>'BestProject' ];
         $this -> assertTrue( $Project -> Close( $pid ) );
     }    
+ 
+    function testIsSaveProject()
+    {
+        $Project = new Project();
+        $this -> assertTrue( $Project -> Save() );
+    } 
     
-    function testCanFillDataProject()
+    function testCanCreateDataProject()
     {
         $Project = Project :: Instance();
         

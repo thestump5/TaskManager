@@ -39,9 +39,14 @@ class Project
         $this -> Fill( $pid );
         return ( FALSE == Repositoriy :: Instance() -> Close( $this ) );
     }
+
+    public function Save()
+    {
+        return ( FALSE == Repositoriy :: Instance() -> Save( $this ) );
+    }
     
     //Think about this
-    public function Fill( array $array )
+    public function Fill( array $array )//rename to Create
     {
         $oiteratr = 0;
         foreach ($this as $key => $value)
