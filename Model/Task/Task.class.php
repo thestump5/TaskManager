@@ -8,9 +8,10 @@ use Repositoriy\Repositoriy;
 
 /**
  * Description of Task
- *
+ * 
  * @author Максим
  */
+
 
 class Task 
 {
@@ -25,7 +26,12 @@ class Task
     protected $User;
     public $Dialog = [];
     
-
+    /**
+     * Меня беспокоит наличие методов Open,Close,Save,Create
+     * в каждом классе. Возможно есть смысл создать трейт который 
+     * будет реализовывать эти методы.
+     */
+    
     public function Create()
     {
         return ( FALSE == Repositoriy :: Instance() -> Create( $this ) );
