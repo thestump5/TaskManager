@@ -137,6 +137,17 @@ class Controller
     }
     
     /**
+     * Test section
+     */
+    
+    private function TestDatabase()
+    {
+        $db = new \Database\Database();
+        $db -> Build();
+        $db -> query();
+    }
+    
+    /**
      * Error section
      */
     
