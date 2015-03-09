@@ -144,7 +144,7 @@ class Controller
     {
         $db = new \Database\Database();
         $db -> Build();
-        $db -> query();
+        print_r( $db -> query() );
     }
     
     /**

@@ -36,12 +36,14 @@ class PDO
     {
         return empty( $this -> statement )
             ? "Run without pdo connetcion"
-            : $this -> statement -> execute( $param );
+            : empty( $param )
+                ? $this -> statement -> execute()
+                : $this -> statement -> execute( $param );
     }
     
     public function fetch()
     {
-        return empty( $this -> pdo )
+        return empty( $this -> statement )
             ? "Run without pdo connetcion"
             : $this -> statement -> fetchAll( \PDO::FETCH_CLASS );        
     }

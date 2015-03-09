@@ -21,7 +21,7 @@ class Database
     
     public function Build()
     {
-        $this -> sql = "SELECT * FROM auth a";
+        $this -> sql = "SELECT email, hash FROM auth";
         return $this -> sql;
     }
     
@@ -42,8 +42,8 @@ class Database
         {
             return "Exception: sql is empty";
         } 
-        
-        $this -> execute( $this -> sql );
+                
+        $this -> execute();
         return $this -> pdo -> fetch();
     }
 }
