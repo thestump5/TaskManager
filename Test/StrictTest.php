@@ -7,7 +7,7 @@ namespace Repositoriy;
  * @author Максим
  */
 
-require_once '/../project/Repositoriy/Strict.class.php';
+require_once '/../Model/Repositoriy/Strict.class.php';
 
 class StrictTest extends \PHPUnit_Framework_TestCase
 {

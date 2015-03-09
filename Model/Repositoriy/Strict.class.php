@@ -15,11 +15,11 @@ class Strict
 
     public function Strict()
     {
-        return FALSE;
+        return TRUE;
     }
     
     public function Grant()
     {
-        return FALSE;
+        return TRUE;
     }
 }
