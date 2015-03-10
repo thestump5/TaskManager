@@ -15,7 +15,9 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     function testCanFieldAdded()
     {
         $Query = new QueryBuilder();
-        $this -> assertTrue( $Query -> addfield( 'join' , [ 'uin', 'uin.iduin=delivery.iduin' ] ) );
-        $this -> assertInternalType( 'array', $Query -> field );
-    }  
+        $key = 'join';
+        $value = [ 'uin', 'uin.iduin=delivery.iduin' ];
+        $Query -> addfield( $key , $value );
+        $this -> assertContains( $value, $Query -> field[$key] );
+    } 
 }
