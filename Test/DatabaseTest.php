@@ -24,7 +24,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
         $Database = new Database();
         $Database -> Build();
         $this -> assertNotInternalType( 'string', $exe = $Database -> execute() );
-        $this -> assertEmpty( $exe );
+        $this -> assertTrue( $exe );
     }    
 
     function testCanFetchResultQuery()
@@ -32,6 +32,6 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
         $Database = new Database();
         $Database -> Build();
         $this -> assertNotInternalType( 'string', $exe = $Database -> query() );
-        $this -> assertEmpty( $exe );
+        $this -> assertNotEmpty( $exe );
     }        
 }
