@@ -140,7 +140,7 @@ class Controller
      * Test section
      */
     
-    private function TestDatabase()
+    private function Test()
     {
         $db = new \Database\QueryBuilder();
         $db -> addfield( 'join' , [ 'delivery', 'uin.iduin=delivery.iduin' ] );

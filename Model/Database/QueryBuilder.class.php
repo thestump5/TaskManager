@@ -21,9 +21,11 @@ class QueryBuilder
     
     public function addfield( $key, $value )
     {
-        if ( ( $this -> field[ $key ][] = $value ) != NULL )
+        if ( NULL != ( $this -> field[ $key ][] = $value ) )
         {
-            return true;
+            return TRUE;
         }
+        
+        return FALSE;
     }
 }
