@@ -24,7 +24,7 @@ class Database
     
     public function Build()
     {
-        if ( empty( $this -> Query ) )
+        //if ( empty( $this -> Query ) )
         {
             $this -> Query = new QueryBuilder();
         }

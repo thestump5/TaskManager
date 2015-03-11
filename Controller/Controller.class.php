@@ -143,10 +143,33 @@ class Controller
     private function Test()
     {
         $db = new \Database\Database();
-        $Query = $db -> Build();
+        $Query = $db -> Build()
+               -> select( ['nicname', 'email', 'city'] )
+               -> addfield( 'FROM', ['delivery', 'auth'])
+               -> addfield( 'JOIN', ['uin', 'auth.idauth = uin.iduin'])
+               -> addfield( 'WHERE', ['idauth = 1', 'uin.iduin = delivery.iduin'])
+               -> addfield( 'LIMIT', [1]);
         $db -> apply( $Query );
         $res = $db -> query();
         var_dump($res);
+        echo "<br />";
+        $Query = $db -> Build()
+               -> insert( [' auth'] )
+               -> addfield( 'VALUES', ['nicname', 'email', 'city'] );
+        $db -> apply( $Query );
+        echo "<br />";        
+        $Query = $db -> Build()
+               -> delete( [' auth'] )
+               -> addfield( 'WHERE', [1] )
+               -> addfield( 'LIMIT', [1] );
+        $db -> apply( $Query );
+        echo "<br />";        
+        $Query = $db -> Build()
+               -> update( [' auth'] )
+               -> addfield( 'SET', ['idauth=20', 'email=maximvg@gmail.com'] )
+               -> addfield( 'WHERE', ['idauth=1'] )
+               -> addfield( 'LIMIT', [1] );
+        $db -> apply( $Query );
     }
     
     /**
