@@ -33,5 +33,5 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
         $Database -> Build();
         $this -> assertNotInternalType( 'string', $exe = $Database -> query() );
         $this -> assertNotEmpty( $exe );
-    }        
+    }
 }

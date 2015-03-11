@@ -142,12 +142,10 @@ class Controller
     
     private function Test()
     {
-        $db = new \Database\QueryBuilder();
-        $db -> addfield( 'join' , [ 'delivery', 'uin.iduin=delivery.iduin' ] );
-        $db -> addfield( 'join' , [ 'uin', 'auth.idauth=uin.iduin' ] );
-        $db -> addfield( 'join' , [ 'carts', 'auth.idauth=carts.idauth' ] );
-        $db -> addfield( 'join' , '' );
-        var_dump($db->field);
+        $db = new \Database\Database();
+        $db -> Build();
+        $res = $db -> query();
+        var_dump($res);
     }
     
     /**

@@ -1,6 +1,7 @@
 <?php
 
 namespace Database;
+use Database\QueryBuilder;
 /**
  * Description of User
  *
@@ -21,7 +22,15 @@ class Database
     
     public function Build()
     {
-        $this -> sql = "SELECT email, hash FROM auth";
+        $Query = new QueryBuilder();
+        $Query -> sql = "SELECT email, hash FROM auth";
+        $this -> applySQL( $Query );
+        return $this -> sql;
+    }
+    
+    private function applySQL( QueryBuilder $Query )
+    {
+        $this -> sql = $Query -> sql;
         return $this -> sql;
     }
     
