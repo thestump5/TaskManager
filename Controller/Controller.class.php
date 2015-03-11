@@ -151,21 +151,6 @@ class Controller
                -> addfield( 'LIMIT', [1]);
         $db -> apply( $Query );
         $res = $db -> query();
-        var_dump($res);
-        echo "<br />";
-        $user -> fill( ['id'=>1, 'name'=>'name', 'family'=>'family', 'address'=>'address'] );
-        $Query = $db -> Build()
-               -> insert( [' auth'] )
-               -> addfield( 'VALUES', $user );
-        $db -> apply( $Query );
-        echo "<br />";        
-       
-        $Query = $db -> Build()
-               -> update( [' auth'] )
-               -> addfield( 'SET', ['idauth=20', 'email=maximvg@gmail.com'] )
-               -> addfield( 'WHERE', ['idauth=1'] )
-               -> addfield( 'LIMIT', [1] );
-        $db -> apply( $Query );
     }
     
     /**
