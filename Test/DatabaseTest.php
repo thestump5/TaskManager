@@ -28,20 +28,20 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
     function testCanExecuteQuery()
     {
         $Database = new Database();
-        $Query = $Database -> Build();
+        $Query = $Database -> Build()
+                -> select( $Database );
         $Database ->apply( $Query );
         $this -> assertNotEmpty( $Database -> sql );
-        $this -> assertNotInternalType( 'string', $exe = $Database -> execute() );
-        $this -> assertTrue( $exe );
+        $this -> assertNotInternalType( 'string', $Database -> execute() );
     }    
 
     function testCanFetchResultQuery()
     {
         $Database = new Database();
-        $Query = $Database -> Build();
+        $Query = $Database -> Build()
+                -> select( $Database );;
         $Database ->apply( $Query );
         $this -> assertNotEmpty( $Database -> sql );
-        $this -> assertNotInternalType( 'string', $exe = $Database -> query() );
-        $this -> assertNotEmpty( $exe );
+        $this -> assertNotInternalType( 'string', $Database -> query() );
     }
 }

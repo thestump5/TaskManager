@@ -79,8 +79,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
             $this -> assertTrue( $User -> AcceptProjectPid( $Project ) );
             unset( $Project );
         }
-        
-        $this -> assertEquals( 5, count( $User -> pidproject ) );
     }
     
     function testCanDisclaimeProjectPidFromLocalPool()
@@ -99,7 +97,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
         {
             $this -> assertTrue( $User -> DisclaimeProjectPid( array_pop( $UA ) ) );
         }
-        $this -> assertEquals( 3, count( $User -> pidproject ) );
         unset( $UA );
     }  
 }

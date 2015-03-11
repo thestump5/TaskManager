@@ -14,8 +14,8 @@ class User
     public $family;
     public $address;
     
-    public $attribute = [];
-    public $pidproject = [];
+    private $attribute = [];
+    private $pidproject = [];
     
     protected $Task = [];   
     

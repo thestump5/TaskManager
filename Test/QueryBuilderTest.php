@@ -24,6 +24,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     function testCanApplyedSQLQuery()
     {
         $Query = new QueryBuilder();
+        $Query -> select( $Query );
         $this -> assertTrue( $Query -> apply() );
     } 
 }

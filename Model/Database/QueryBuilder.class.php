@@ -18,9 +18,9 @@ class QueryBuilder
         static :: $Instance = $this;
     }
     
-    public function select( $field )
+    public function select( $object )
     {
-        $this -> field[ "SELECT" ][] = $field;
+        $this -> field[ "SELECT" ][] = get_object_vars( $object );
         return static::$Instance;
     }
     
@@ -42,12 +42,16 @@ class QueryBuilder
         return static::$Instance;
     }
     
+    //Возможна также передача объектов без массивов
+    //надо реализовать это.
     public function addfield( $key, $value = "" )
     {
-        $this -> field[ $key ][] = $value;
+        $this -> field[ $key ][] = is_object( $value ) ? get_object_vars( $value ) : $value;
         return static::$Instance;
     }
     
+    //Когда будут сделаны все вышеописанные функции
+    //подредактировть эту функцию
     public function apply()
     {
         $fields = [];
@@ -59,7 +63,7 @@ class QueryBuilder
                 switch ($key)
                 {
                     case 'SELECT':
-                        $fields[ $key ] .= implode( " , ", $f );
+                        $fields[ $key ] .= implode( " , ", array_keys($f) );
                         break;
                     case 'INSERT INTO':
                         $fields[ $key ] .= implode( " , ", $f );
@@ -71,7 +75,7 @@ class QueryBuilder
                         $fields[ $key ] .= implode( " , ", $f );
                         break;
                     case 'VALUES':
-                        $fields[ $key ] .= "(" . implode( " , ", $f ) . ")";
+                        $fields[ $key ] .= "(" . implode( " , ", array_values($f) ) . ")";
                         break;
                     case 'SET':
                         $fields[ $key ] .= implode( " AND ", $f );

@@ -142,28 +142,24 @@ class Controller
     
     private function Test()
     {
+        $user = User::Instance();
         $db = new \Database\Database();
         $Query = $db -> Build()
-               -> select( ['nicname', 'email', 'city'] )
-               -> addfield( 'FROM', ['delivery', 'auth'])
-               -> addfield( 'JOIN', ['uin', 'auth.idauth = uin.iduin'])
-               -> addfield( 'WHERE', ['idauth = 1', 'uin.iduin = delivery.iduin'])
+               -> select( $user )
+               -> addfield( 'FROM', ['auth'])
+               -> addfield( 'WHERE', ['idauth = 1'])
                -> addfield( 'LIMIT', [1]);
         $db -> apply( $Query );
         $res = $db -> query();
         var_dump($res);
         echo "<br />";
+        $user -> fill( ['id'=>1, 'name'=>'name', 'family'=>'family', 'address'=>'address'] );
         $Query = $db -> Build()
                -> insert( [' auth'] )
-               -> addfield( 'VALUES', ['nicname', 'email', 'city'] );
+               -> addfield( 'VALUES', $user );
         $db -> apply( $Query );
         echo "<br />";        
-        $Query = $db -> Build()
-               -> delete( [' auth'] )
-               -> addfield( 'WHERE', [1] )
-               -> addfield( 'LIMIT', [1] );
-        $db -> apply( $Query );
-        echo "<br />";        
+       
         $Query = $db -> Build()
                -> update( [' auth'] )
                -> addfield( 'SET', ['idauth=20', 'email=maximvg@gmail.com'] )
