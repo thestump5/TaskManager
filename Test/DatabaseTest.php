@@ -18,6 +18,13 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
         $this -> assertInstanceOf( 'Database\QueryBuilder', $Database -> Build() );
     }
 
+    function testCanApplySQLQuery()
+    {
+        $Database = new Database();
+        $Query = $Database -> Build();
+        $this -> assertInternalType( 'string', $Database -> apply( $Query ) );
+    }
+    
     function testCanExecuteQuery()
     {
         $Database = new Database();
