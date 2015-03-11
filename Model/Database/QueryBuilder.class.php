@@ -8,7 +8,7 @@ namespace Database;
  */
 class QueryBuilder 
 {
-    public $sql;
+    public $sql = "SELECT * FROM auth";
     public $field = [];
     
     public function select(){}
@@ -22,5 +22,10 @@ class QueryBuilder
     public function addfield( $key, $value )
     {
         $this -> field[ $key ][] = $value;
+    }
+    
+    public function apply()
+    {
+        return ( TRUE == $this -> sql );
     }
 }

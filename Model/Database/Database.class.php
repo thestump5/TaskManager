@@ -15,6 +15,8 @@ class Database
     public $sql = NULL;
     public $param = [];
             
+    private $Query;    
+    
     public function __construct()
     {
         $this -> pdo = new PDO();
@@ -22,37 +24,33 @@ class Database
     
     public function Build()
     {
-        $Query = new QueryBuilder();
-        $Query -> sql = "SELECT email, hash FROM auth";
-        $this -> applySQL( $Query );
-        return $this -> sql;
+        if ( empty( $this -> Query ) )
+        {
+            $this -> Query = new QueryBuilder();
+        }
+        
+        return $this -> Query;
     }
     
-    private function applySQL( QueryBuilder $Query )
+    public function apply( QueryBuilder $Query )
     {
-        $this -> sql = $Query -> sql;
+        $this -> sql = empty( $Query -> apply() ) 
+                        ? ""
+                        : $Query -> sql;
+        
         return $this -> sql;
     }
     
     public function execute()
     {
-        if ( $this -> sql === NULL )
-        {
-            return "Exception: sql is empty";
-        } 
-        
         $this -> pdo -> prepare( $this -> sql );
         return $this -> pdo -> execute( $this -> param );
     }
     
     public function query()
-    {
-        if ( $this -> sql === NULL )
-        {
-            return "Exception: sql is empty";
-        } 
-                
-        $this -> execute();
+    {    
+        $this -> pdo -> prepare( $this -> sql );
+        $this -> pdo -> execute( $this -> param );
         return $this -> pdo -> fetch();
     }
 }

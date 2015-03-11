@@ -143,7 +143,8 @@ class Controller
     private function Test()
     {
         $db = new \Database\Database();
-        $db -> Build();
+        $Query = $db -> Build();
+        $db -> apply( $Query );
         $res = $db -> query();
         var_dump($res);
     }

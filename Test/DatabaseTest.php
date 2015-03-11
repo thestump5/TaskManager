@@ -15,14 +15,15 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
     function testCanSQLIsBuild()
     {
         $Database = new Database();
-        $this -> assertInternalType( 'string', $Database -> Build() );
-        $this -> assertNotEmpty( $Database -> sql );
+        $this -> assertInstanceOf( 'Database\QueryBuilder', $Database -> Build() );
     }
 
     function testCanExecuteQuery()
     {
         $Database = new Database();
-        $Database -> Build();
+        $Query = $Database -> Build();
+        $Database ->apply( $Query );
+        $this -> assertNotEmpty( $Database -> sql );
         $this -> assertNotInternalType( 'string', $exe = $Database -> execute() );
         $this -> assertTrue( $exe );
     }    
@@ -30,7 +31,9 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
     function testCanFetchResultQuery()
     {
         $Database = new Database();
-        $Database -> Build();
+        $Query = $Database -> Build();
+        $Database ->apply( $Query );
+        $this -> assertNotEmpty( $Database -> sql );
         $this -> assertNotInternalType( 'string', $exe = $Database -> query() );
         $this -> assertNotEmpty( $exe );
     }

@@ -20,4 +20,10 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         $Query -> addfield( $key , $value );
         $this -> assertContains( $value, $Query -> field[$key] );
     } 
+    
+    function testCanApplyedSQLQuery()
+    {
+        $Query = new QueryBuilder();
+        $this -> assertTrue( $Query -> apply() );
+    } 
 }
