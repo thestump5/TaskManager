@@ -51,6 +51,7 @@ class Database
     {    
         $this -> pdo -> prepare( $this -> sql );
         $this -> pdo -> execute( $this -> param );
-        return $this -> pdo -> fetch();
+        $fetch = $this -> pdo -> fetch();
+        return $fetch;
     }
 }
