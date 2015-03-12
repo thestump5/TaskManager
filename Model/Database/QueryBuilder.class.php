@@ -62,10 +62,12 @@ class QueryBuilder
                 $query .= "(";
                 for($i = 0; $i<count($array); $i++)
                 {
-                    $query .= is_int( $array[$i] ) 
-                                        ?  $array[$i]
+                    var_dump(is_numeric( $array[$i] ));
+                    var_dump( $array[$i] );
+                    $query .= is_numeric( $array[$i] )
+                                        ? $array[$i]
                                         : is_null( $array[$i] ) 
-                                            ? $array[$i]
+                                            ? 'null'
                                             : "'" . $array[$i] . "'";
                     $query .= ( $i/(count($array) - 1 ) !== 1 ) ? "," : "";
                 }
