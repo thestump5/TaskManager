@@ -13,40 +13,16 @@ class QueryBuilder
     
     private static $Instance;
     
+    private $key_exclude = ["FIELD"];
+    
     function __construct() 
     {
         static :: $Instance = $this;
     }
     
-    public function select( $object )
+    public function addpart( $key, $value = "" )
     {
-        $this -> field[ "SELECT" ][] = get_object_vars( $object );
-        return static::$Instance;
-    }
-    
-    public function insert( $table )
-    {
-        $this -> field[ "INSERT INTO" ][] = $table;
-        return static::$Instance;
-    }
-    
-    public function update( $table )
-    {
-        $this -> field[ "UPDATE" ][] = $table;
-        return static::$Instance;
-    }
-    
-    public function delete( $table )
-    {
-        $this -> field[ "DELETE" ][] = $table;
-        return static::$Instance;
-    }
-    
-    //Возможна также передача объектов без массивов
-    //надо реализовать это.
-    public function addfield( $key, $value = "" )
-    {
-        $this -> field[ $key ][] = is_object( $value ) ? get_object_vars( $value ) : $value;
+        $this -> field[ $key ][] = is_object( $value ) ? array_keys( get_object_vars( $value ) ) : ( array )$value;
         return static::$Instance;
     }
     
@@ -57,50 +33,61 @@ class QueryBuilder
         $fields = [];
         foreach ( $this -> field as $key => $field )
         {
-            $fields[ $key ] = " " . $key . " ";
+            $fields[ $key ] =  " " . $key . " ";
+
             foreach ( $field as $f )
             {
-                switch ($key)
-                {
-                    case 'SELECT':
-                        $fields[ $key ] .= implode( " , ", array_keys($f) );
-                        break;
-                    case 'INSERT INTO':
-                        $fields[ $key ] .= implode( " , ", $f );
-                        break;
-                    case 'DELETE':
-                        $fields[ $key ] .= implode( " , ", $f );
-                        break;
-                    case 'INTO':
-                        $fields[ $key ] .= implode( " , ", $f );
-                        break;
-                    case 'VALUES':
-                        $fields[ $key ] .= "(" . implode( " , ", array_values($f) ) . ")";
-                        break;
-                    case 'SET':
-                        $fields[ $key ] .= implode( " AND ", $f );
-                        break;
-                    case 'FROM':
-                        $fields[ $key ] .= implode( " , ", $f );
-                        break;
-                    case 'JOIN':
-                        $fields[ $key ] .= implode( " ON ", $f );
-                        break;
-                    case 'WHERE':
-                        $fields[ $key ] .= implode( " AND ", $f );
-                        break;
-                    case 'LIMIT':
-                        $fields[ $key ] .= implode( " , ", $f );
-                        break;
-                    default:
-                        $fields[ $key ] .= implode( " , ", $f );
-                        break;
-                }
+                $fields[ $key ] .= $this -> prepare($key, $f);
             }
         }
+        
         $this -> sql .= implode( " ", $fields );
+        $this -> sql = str_replace( $this -> key_exclude, "", $this -> sql );
+        
         var_dump( $this -> sql );
         echo "<br />";
-        return ( TRUE == $this -> sql );
+        return ( TRUE == strlen( $this -> sql ) );
     }
+    
+    //TODO: rename function:
+    private function prepare( $key, array $array )
+    {
+        $query = "";
+        switch ($key)
+        {
+            case 'FIELD':
+                $query .= "(" . implode( " , ", $array ) . ")";
+                break;
+            case 'VALUES':
+                $query .= "(";
+                for($i = 0; $i<count($array); $i++)
+                {
+                    $query .= is_int( $array[$i] ) 
+                                        ?  $array[$i]
+                                        : is_null( $array[$i] ) 
+                                            ? $array[$i]
+                                            : "'" . $array[$i] . "'";
+                    $query .= ( $i/(count($array) - 1 ) !== 1 ) ? "," : "";
+                }
+                $query .= ")";
+                break;
+            case 'SET':
+                $query .= implode( " AND ", $array );
+                break;
+            case 'JOIN':
+                $query .= implode( " ON ", $array );
+                break;
+            case 'WHERE':
+                $query .= implode( " AND ", $array );
+                break;
+            default:
+                $query .= implode( " , ", $array );
+                break;
+        }
+        
+        return $query;
+    }
+    
+    //TODO: function key exclude
+    
 }

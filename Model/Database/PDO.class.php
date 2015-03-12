@@ -25,6 +25,15 @@ class PDO
         return $this -> pdo;
     }
     
+    public function error()
+    {
+        if ( $this -> pdo -> errorCode() != '00000' )
+        {
+            echo implode( " ", $this -> pdo -> errorInfo() );
+        }
+    }
+
+
     public function prepare( $sql )
     {
         return empty( $this -> pdo )

@@ -44,12 +44,15 @@ class Database
     public function execute()
     {
         $this -> pdo -> prepare( $this -> sql );
-        return $this -> pdo -> execute( $this -> param );
+        $this -> pdo -> error();
+        $execute = $this -> pdo -> execute( $this -> param );
+        return $execute;
     }
     
     public function query()
     {    
         $this -> pdo -> prepare( $this -> sql );
+        $this -> pdo -> error();
         $this -> pdo -> execute( $this -> param );
         $fetch = $this -> pdo -> fetch();
         return $fetch;

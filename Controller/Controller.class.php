@@ -143,14 +143,26 @@ class Controller
     private function Test()
     {
         $user = User::Instance();
+        $user -> Fill( ['id'=>(int)9, 'name'=>'User', 'family'=>'Group', 'address'=>'Home'] );
+        
         $db = new \Database\Database();
         $Query = $db -> Build()
-               -> select( $user )
-               -> addfield( 'FROM', ['auth'])
-               -> addfield( 'WHERE', ['idauth = 1'])
-               -> addfield( 'LIMIT', [1]);
+               //-> select( $user )
+               -> addpart( 'INSERT INTO', 'user')
+               -> addpart( 'FIELD', $user)
+               -> addpart( 'VALUES', array_values( get_object_vars( $user ) ) );
+        $db -> apply( $Query );        
+        //$db -> execute();        
+        
+        $Query = $db -> Build()
+               //-> select( $user )
+               -> addpart( 'SELECT', $user )
+               -> addpart( 'FROM', ['user'] )
+               -> addpart( 'WHERE', ['id > 0'] )
+               -> addpart( 'LIMIT', [5, 10] );
         $db -> apply( $Query );
         $res = $db -> query();
+        var_dump($res);
     }
     
     /**
