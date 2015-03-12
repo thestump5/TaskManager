@@ -4,11 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/www/TaskManager/TaskManager/Test/DatabaseTest.php</file>
-            <file>file:/E:/www/TaskManager/TaskManager/Model/Database/PDO.class.php</file>
-            <file>file:/E:/www/TaskManager/TaskManager/Model/Database/QueryBuilder.class.php</file>
-            <file>file:/E:/www/TaskManager/TaskManager/Model/Database/Database.class.php</file>
+            <file>file:/E:/www/TaskManager/TaskManager/Test/QueryBuilderTest.php</file>
             <file>file:/E:/www/TaskManager/TaskManager/Controller/Controller.class.php</file>
-            <file>file:/E:/www/TaskManager/TaskManager/Model/Database/config.inc.php</file>
         </group>
     </open-files>
 </project-private>
