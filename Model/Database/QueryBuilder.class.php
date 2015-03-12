@@ -22,7 +22,9 @@ class QueryBuilder
     
     public function addpart( $key, $value = "" )
     {
-        $this -> field[ $key ][] = is_object( $value ) ? array_keys( get_object_vars( $value ) ) : ( array )$value;
+        $this -> field[ $key ][] = is_object( $value ) 
+                                    ? array_keys( get_object_vars( $value ) ) 
+                                    : ( array )$value;
         return static::$Instance;
     }
     
@@ -33,11 +35,10 @@ class QueryBuilder
         $fields = [];
         foreach ( $this -> field as $key => $field )
         {
-            $fields[ $key ] =  " " . $key . " ";
-
-            foreach ( $field as $f )
+            foreach ( $field as $_field )
             {
-                $fields[ $key ] .= $this -> prepare($key, $f);
+                $fields[ $key ] =  " " . $key . " ";
+                $fields[ $key ] .= $this -> prepare( $key, $_field );
             }
         }
         
@@ -46,7 +47,7 @@ class QueryBuilder
         
         var_dump( $this -> sql );
         echo "<br />";
-        return ( TRUE == strlen( $this -> sql ) );
+        return ( TRUE == $this -> sql );
     }
     
     //TODO: rename function:
@@ -56,27 +57,14 @@ class QueryBuilder
         switch ($key)
         {
             case 'FIELD':
+            case 'VALUES':
                 $query .= "(" . implode( " , ", $array ) . ")";
                 break;
-            case 'VALUES':
-                $query .= "(";
-                for($i = 0; $i<count($array); $i++)
-                {
-                    var_dump(is_numeric( $array[$i] ));
-                    var_dump( $array[$i] );
-                    $query .= is_numeric( $array[$i] )
-                                        ? $array[$i]
-                                        : is_null( $array[$i] ) 
-                                            ? 'null'
-                                            : "'" . $array[$i] . "'";
-                    $query .= ( $i/(count($array) - 1 ) !== 1 ) ? "," : "";
-                }
-                $query .= ")";
-                break;
-            case 'SET':
-                $query .= implode( " AND ", $array );
-                break;
             case 'JOIN':
+            case 'INNER JOIN':
+            case 'LEFT JOIN':
+            case 'RIGHT JOIN':
+            case 'CROSS JOIN':
                 $query .= implode( " ON ", $array );
                 break;
             case 'WHERE':
@@ -85,11 +73,7 @@ class QueryBuilder
             default:
                 $query .= implode( " , ", $array );
                 break;
-        }
-        
+        }        
         return $query;
     }
-    
-    //TODO: function key exclude
-    
 }

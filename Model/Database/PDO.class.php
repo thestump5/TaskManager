@@ -21,7 +21,11 @@ class PDO
     
     public function connect()
     {
-        $this -> pdo = new \PDO("mysql:host=" . DB_HOST . " ;dbname=" . DB_NAME . ";", DB_USER, DB_PW);
+        $this -> pdo = new \PDO(
+                "mysql:host=" . DB_HOST . " ;dbname=" . DB_NAME . ";", 
+                DB_USER, 
+                DB_PW
+            );
         return $this -> pdo;
     }
     
@@ -29,10 +33,11 @@ class PDO
     {
         if ( $this -> pdo -> errorCode() != '00000' )
         {
-            echo implode( " ", $this -> pdo -> errorInfo() );
+            throw new \Exception( implode( " ", $this -> pdo -> errorInfo() ) );
         }
+        
+        return TRUE;
     }
-
 
     public function prepare( $sql )
     {

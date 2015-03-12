@@ -150,16 +150,26 @@ class Controller
                //-> select( $user )
                -> addpart( 'INSERT INTO', 'user')
                -> addpart( 'FIELD', $user)
-               -> addpart( 'VALUES', array_values( get_object_vars( $user ) ) );
-        $db -> apply( $Query );        
+               -> addpart( 'VALUES', ['?','?','?','?'] );
+        $db -> apply( $Query );      
+        $db -> param = array_values( get_object_vars( $user ) );
         //$db -> execute();        
+
+        $Query = $db -> Build()
+               //-> select( $user )
+               -> addpart( 'UPDATE', 'user')
+               -> addpart( 'SET', ['id=?', 'name=?', 'family=?', 'address=?'])
+               -> addpart( 'WHERE', ['id=10'] );
+        $db -> apply( $Query );
+        $db -> param = [1, 'User', 'Group', 'Home'];
+        $db -> execute();        
         
         $Query = $db -> Build()
                //-> select( $user )
                -> addpart( 'SELECT', $user )
                -> addpart( 'FROM', ['user'] )
                -> addpart( 'WHERE', ['id > 0'] )
-               -> addpart( 'LIMIT', [5, 10] );
+               -> addpart( 'LIMIT', [10] );
         $db -> apply( $Query );
         $res = $db -> query();
         var_dump($res);
