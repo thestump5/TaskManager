@@ -29,7 +29,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
     {
         $Database = new Database();
         $Query = $Database -> Build()
-                -> select( $Database );
+                -> addpart( "SELECT", $Database );
         $Database ->apply( $Query );
         $this -> assertNotEmpty( $Database -> sql );
         $this -> assertNotInternalType( 'string', $Database -> execute() );
@@ -39,7 +39,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
     {
         $Database = new Database();
         $Query = $Database -> Build()
-                -> select( $Database );;
+                -> addpart( "SELECT", $Database );
         $Database ->apply( $Query );
         $this -> assertNotEmpty( $Database -> sql );
         $this -> assertNotInternalType( 'string', $Database -> query() );

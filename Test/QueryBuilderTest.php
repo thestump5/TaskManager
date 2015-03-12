@@ -17,14 +17,14 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         $Query = new QueryBuilder();
         $key = 'join';
         $value = [ 'uin', 'uin.iduin=delivery.iduin' ];
-        $Query -> addfield( $key , $value );
-        $this -> assertContains( $value, $Query -> field[$key] );
+        $Query -> addpart( $key , $value );
+        $this -> assertContains( $value, $Query -> field[ $key ] );
     } 
     
     function testCanApplyedSQLQuery()
     {
         $Query = new QueryBuilder();
-        $Query -> select( $Query );
+        $Query -> addpart( "INSERT INTO", $Query );
         $this -> assertTrue( $Query -> apply() );
     } 
 }
