@@ -143,7 +143,7 @@ class Controller
     private function Test()
     {
         $user = User::Instance();
-        $user -> Fill( ['id'=>(int)9, 'name'=>'User', 'family'=>'Group', 'address'=>'Home'] );
+        $user -> Fill( ['id'=>9, 'name'=>'User', 'family'=>'Group', 'address'=>'Home'] );
         
         $db = new \Database\Database();
         $Query = $db -> Build()
