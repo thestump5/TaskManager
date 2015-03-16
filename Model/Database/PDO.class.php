@@ -4,7 +4,7 @@ namespace Database;
 
 /**
  * Description of PDO
- * @author Максим
+ * @author stump
  */
 
 require_once 'config.inc.php';

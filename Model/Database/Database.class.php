@@ -5,7 +5,7 @@ use Database\QueryBuilder;
 
 /**
  * Description of User
- * @author Максим
+ * @author stump
  */
 class Database
 {

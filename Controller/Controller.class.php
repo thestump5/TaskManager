@@ -164,10 +164,16 @@ class Controller
         $db -> param = [1, 'User', 'Group', 'Home'];
         $db -> execute();        
         
+//        $Query = $db -> Build()
+//            -> addpart( 'SELECT', '*' )
+//            -> addpart( 'FROM', ['account'] );
+//        $db -> apply( $Query );
+//        $subquery = "(".$db -> sql.")";
+        
         $Query = $db -> Build()
                //-> select( $user )
                -> addpart( 'SELECT', $user )
-               -> addpart( 'FROM', ['user'] )
+               -> addpart( 'FROM', 'user' )
                -> addpart( 'WHERE', ['id > 0'] )
                -> addpart( 'LIMIT', [10] );
         $db -> apply( $Query );

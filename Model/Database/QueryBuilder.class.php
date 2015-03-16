@@ -4,7 +4,7 @@ namespace Database;
 
 /**
  * Description of QueryBuilder
- * @author Максим
+ * @author stump
  */
 class QueryBuilder 
 {
