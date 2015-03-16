@@ -142,7 +142,6 @@ class Controller
     
     private function Test()
     {
-        
         $user = User::Instance();
         $user -> Fill( ['id'=>9, 'name'=>'User', 'family'=>'Group', 'address'=>'Home'] );
         

@@ -16,24 +16,28 @@ class RepositoriyTest extends \PHPUnit_Framework_TestCase
     function testIsSave()
     {
         $Repositoriy = new Repositoriy();
-        $this -> assertNotTrue( $Repositoriy -> Save( new User() ) );
+        $User = $this -> getMock( 'User\User' );
+        $this -> assertNotTrue( $Repositoriy -> Save( $User ) );
     }
 
     function testIsOpen()
     {
         $Repositoriy = new Repositoriy();
-        $this -> assertNotTrue( $Repositoriy -> Open( new User() ) );
+        $User = $this -> getMock( 'User\User' );
+        $this -> assertNotTrue( $Repositoriy -> Open( $User ) );
     }
   
     function testIsClose()
     {
         $Repositoriy = new Repositoriy();
-        $this -> assertNotTrue( $Repositoriy -> Close( new User() ) );
+        $User = $this -> getMock( 'User\User' );
+        $this -> assertNotTrue( $Repositoriy -> Close( $User ) );
     }
     
     function testIsCreate()
     {
         $Repositoriy = new Repositoriy();
-        $this -> assertNotTrue( $Repositoriy -> Create( new User() ) );
+        $User = $this -> getMock( 'User\User' );
+        $this -> assertNotTrue( $Repositoriy -> Create( $User ) );
     }    
 }

@@ -16,7 +16,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     function testCanOpenAccount()
     {
         $Account = new Account();
-        $Account -> User = new User();
+        $Account -> User = $this -> getMock( 'User\User' );
         $this -> assertTrue( $Account -> Open() );
         $this -> assertNotEmpty( $Account -> id );
     }    
@@ -24,7 +24,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     function testAccountIsClose()
     {
         $Account = new Account();
-        $Account -> User = new User();
+        $Account -> User = $this -> getMock( 'User\User' );
         $Account -> IS_LOGGINED = true;
         $this -> assertTrue( $Account -> Close() );
     }    
@@ -32,7 +32,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     function testAccountIsSave()
     {
         $Account = new Account();
-        $Account -> User = new User();
+        $Account -> User = $this -> getMock( 'User\User' );
         $this -> assertTrue( $Account -> Save() );
         $this -> assertNotEmpty( $Account -> id );
     }    
@@ -40,7 +40,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     function testAccountIsCreate()
     {
         $Account = new Account();
-        $Account -> User = new User();
+        $Account -> User = $this -> getMock( 'User\User' );
         $_POST['name'] = 'name';
         $this -> assertTrue( $Account -> Create() );
     }    

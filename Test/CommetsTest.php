@@ -39,14 +39,16 @@ class CommentsTest extends \PHPUnit_Framework_TestCase
     function testIsAcceptedUser()
     {
         $Comments = new Comments();
-        $this -> assertTrue( $Comments -> AcceptUser( ( new User() ) ) );
+        $User = $this -> getMock( 'User\User' );
+        $this -> assertTrue( $Comments -> AcceptUser( $User ) );
     }
     
     function testIsDisclaimeUser()
     {
         $Comments = new Comments();
-        $this -> assertTrue( $Comments -> AcceptUser( ( $_User = new User() ) ) );
-        $this -> assertTrue( $Comments -> DisclaimeUser( $_User ) );
+        $User = $this -> getMock( 'User\User' );
+        $this -> assertTrue( $Comments -> AcceptUser( $User ) );
+        $this -> assertTrue( $Comments -> DisclaimeUser( $User ) );
     }
     
     function testCanAddMessage()

@@ -35,8 +35,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
     
     function testCanCreateDataProject()
     {
-        $Project = Project :: Instance();
-        
+        $Project = new Project();
         $this -> assertTrue( $Project -> Fill( [ 'id'=>'id', 'name'=>'name' ] ) );
         $this -> assertEquals( 'id', $Project -> id );
         $this -> assertEquals( 'name', $Project -> name );

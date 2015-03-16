@@ -70,14 +70,15 @@ class User
     public function AcceptProjectPid( \Project\Project $pid )
     {
         $count = count( $this -> pidproject );
-        $ncount = array_push( $this -> pidproject, get_object_vars($pid) );
+        $ncount = array_push( $this -> pidproject, $pid );
         return ( ( $count + 1 ) == $ncount );
     }
 
     public function DisclaimeProjectPid( \Project\Project $pid )
     {
         $count = count( $this -> pidproject );
-        if ( ( $key = array_search( get_object_vars( $pid ), $this -> pidproject ) ) )
+        $key = array_search( $pid, $this -> pidproject );
+        if ( isset( $key ) )
         {
             unset( $this -> pidproject[ $key ] );
         }

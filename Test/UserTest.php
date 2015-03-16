@@ -48,7 +48,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     function testCanUserHaveAccount()
     {
         $User = new User();
-        $this -> assertInstanceOf( get_class( new Account() ), $User -> Account()    );
+        $this -> assertInstanceOf( 'User\Account', $User -> Account()    );
     }
     
     function testCanUserChangeAccount()
@@ -56,8 +56,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $User1 = new User();
         $User2 = new User();
         
-        $this -> assertInstanceOf( get_class( new Account() ), $User1 -> Account()    );
-        $this -> assertInstanceOf( get_class( new Account() ), $User2 -> Account()    );
+        $this -> assertInstanceOf( 'User\Account', $User1 -> Account()    );
+        $this -> assertInstanceOf( 'User\Account', $User2 -> Account()    );
         
         $this -> assertEquals( $User2 -> Account(), $User1 -> Account( $User2 -> Account() ) );
     }    
@@ -66,7 +66,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $User = new User();
         $pid = [ 'id'=>1, 'name'=>'BestProject' ];
-        $this -> assertInstanceOf( get_class( new Project() ), $User -> Project( $pid ) );
+        $this -> assertInstanceOf( 'Project\Project', $User -> Project( $pid ) );
     }
  
     
@@ -75,7 +75,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $User = new User();
         for($i = 0; $i < 5; $i++)
         {
-            $Project = new Project();
+            $Project = $this -> getMock( 'Project\Project' );
             $this -> assertTrue( $User -> AcceptProjectPid( $Project ) );
             unset( $Project );
         }
@@ -87,8 +87,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $UA = [];
         for($i = 1; $i <= 5; $i++)
         {
-            $Project = new Project();
-            $Project -> Fill( ['id'=>$i, 'name'=>(float)$i/2] );
+            $Project = $this -> getMock( 'Project\Project' );
             $UA[] = $Project;
             $this -> assertTrue( $User -> AcceptProjectPid( $Project ) );
             unset( $Project );
