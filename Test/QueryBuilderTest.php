@@ -2,7 +2,7 @@
 
 namespace Database;
 /**
- * Description of Test_CanTaskWorking
+ * Description of Test_QueryBuilderTest
  *
  * @author Максим
  */
