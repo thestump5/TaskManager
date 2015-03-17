@@ -17,7 +17,7 @@ class QueryBuilder
     
     function __construct() 
     {
-        static :: $Instance = $this;
+    //    static :: $Instance = $this;
     }
     
     public function addpart( $key, $value = "" )
@@ -25,7 +25,7 @@ class QueryBuilder
         $this -> field[ $key ][] = is_object( $value ) 
                                     ? array_keys( get_object_vars( $value ) ) 
                                     : ( array )$value;
-        return static::$Instance;
+        return $this;
     }
     
     //Когда будут сделаны все вышеописанные функции

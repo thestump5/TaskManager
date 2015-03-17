@@ -1,7 +1,8 @@
 <?php
 
 namespace Database;
-use Database\QueryBuilder;
+use Database\QueryBuilder,
+    Database\PDO;
 
 /**
  * Description of User
@@ -9,46 +10,41 @@ use Database\QueryBuilder;
  */
 class Database
 {
-    public $pdo;
+    use PDO
+    {
+        prepare as pdo_prepare;
+        execute as pdo_execute;
+    }
     
-    public $sql = NULL;
+    public $sql;
     public $param = [];
             
-    private $Query;    
-    
     public function __construct()
     {
-        $this -> pdo = new PDO();
+        $this -> connect();
     }
     
-    public function Build()
+    public function Build( QueryBuilder $Query )
     {
-        $this -> Query = new QueryBuilder();
-        return $this -> Query;
-    }
-    
-    public function apply( QueryBuilder $Query )
-    {
-        $this -> sql = empty( $Query -> apply() ) 
+        $this -> sql = !$Query -> apply()
                         ? ""
                         : $Query -> sql;
-        return $this -> sql;
+        return ( bool )$this -> sql;
     }
     
     public function execute()
     {
-        $this -> pdo -> prepare( $this -> sql );
-        $execute = $this -> pdo -> execute( $this -> param );
-        $this -> pdo -> error();
-        return $execute;
+        $this -> pdo_prepare( $this -> sql );
+        $execute = $this -> pdo_execute( $this -> param );
+        return ( bool )$execute;
     }
     
     public function query()
     {    
-        $this -> pdo -> prepare( $this -> sql );
-        $this -> pdo -> execute( $this -> param );
-        $this -> pdo -> error();
-        $fetch = $this -> pdo -> fetch();
+        
+        $this -> pdo_prepare( $this -> sql );
+        $this -> pdo_execute( $this -> param );
+        $fetch = $this -> fetch();
         return $fetch;
     }
 }

@@ -146,23 +146,22 @@ class Controller
         $user -> Fill( ['id'=>9, 'name'=>'User', 'family'=>'Group', 'address'=>'Home'] );
         
         $db = new \Database\Database();
-        $Query = $db -> Build()
-               //-> select( $user )
-               -> addpart( 'INSERT INTO', 'user')
-               -> addpart( 'FIELD', $user)
-               -> addpart( 'VALUES', ['?','?','?','?'] );
-        $db -> apply( $Query );      
-        $db -> param = array_values( get_object_vars( $user ) );
-        //$db -> execute();        
+//        $Query = new \Database\QueryBuilder();
+//        $Query -> addpart( 'INSERT INTO', 'user')
+//               -> addpart( 'FIELD', $user)
+//               -> addpart( 'VALUES', ['?','?','?','?'] );
+//        $db -> Build( $Query );      
+//        $db -> param = array_values( get_object_vars( $user ) );
+//        $db -> execute();        
 
-        $Query = $db -> Build()
-               //-> select( $user )
-               -> addpart( 'UPDATE', 'user')
-               -> addpart( 'SET', ['id=?', 'name=?', 'family=?', 'address=?'])
-               -> addpart( 'WHERE', ['id=10'] );
-        $db -> apply( $Query );
-        $db -> param = [1, 'User', 'Group', 'Home'];
-        $db -> execute();        
+//        $db = new \Database\Database();
+//        $Query = new \Database\QueryBuilder();
+//        $Query -> addpart( 'UPDATE', 'user')
+//               -> addpart( 'SET', ['id=?', 'name=?', 'family=?', 'address=?'])
+//               -> addpart( 'WHERE', ['id=1'] );
+//        $db -> Build( $Query );
+//        $db -> param = [4, 'User', 'Group', 'Home'];
+//        $db -> execute();        
         
 //        $Query = $db -> Build()
 //            -> addpart( 'SELECT', '*' )
@@ -170,13 +169,12 @@ class Controller
 //        $db -> apply( $Query );
 //        $subquery = "(".$db -> sql.")";
         
-        $Query = $db -> Build()
-               //-> select( $user )
-               -> addpart( 'SELECT', $user )
+        $Query = new \Database\QueryBuilder();
+        $Query -> addpart( 'SELECT', $user )
                -> addpart( 'FROM', 'user' )
-               -> addpart( 'WHERE', ['id > 0'] )
+               -> addpart( 'WHERE', ['id > 1', 'id < 10'] )
                -> addpart( 'LIMIT', [10] );
-        $db -> apply( $Query );
+        $db -> Build( $Query );
         $res = $db -> query();
         var_dump($res);
     }

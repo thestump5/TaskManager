@@ -7,58 +7,46 @@ namespace Database;
  * @author stump
  */
 
-require_once 'config.inc.php';
+//TODO: Exception to check error;
 
-class PDO 
+trait PDO 
 {
-    public $pdo;
-    public $statement;
+    private $pdo;
+    private $statement;
+
+    private $DB_HOST = '127.0.0.1';
+    private $DB_NAME = 'mydb';
+    private $DB_USER = 'root';
+    private $DB_PW = '1111';
     
-    function __construct() 
+    public function __get( $name )
     {
-        $this -> connect();
+        echo $name;
+        return $this -> $name;
     }
     
     public function connect()
     {
         $this -> pdo = new \PDO(
-                "mysql:host=" . DB_HOST . " ;dbname=" . DB_NAME . ";", 
-                DB_USER, 
-                DB_PW
+                "mysql:host=" . $this -> DB_HOST . " ;dbname=" . $this -> DB_NAME . ";", 
+                $this -> DB_USER, 
+                $this -> DB_PW
             );
-        return $this -> pdo;
+        return ( bool ) $this -> pdo;
     }
     
-    public function error()
-    {
-        if ( $this -> pdo -> errorCode() != '00000' )
-        {
-            throw new \Exception( implode( " ", $this -> pdo -> errorInfo() ) );
-        }
-        
-        return TRUE;
-    }
-
     public function prepare( $sql )
     {
-        return empty( $this -> pdo )
-            ? "Run without pdo connetcion"
-            : ( $this -> statement = $this -> pdo -> prepare( $sql ) );
+        return ( TRUE == ( $this -> statement = $this -> pdo -> prepare( $sql ) ) );
     }
     
     public function execute( $param )
     {
-        return empty( $this -> statement )
-            ? "Run without pdo connetcion"
-            : empty( $param )
-                ? $this -> statement -> execute()
-                : $this -> statement -> execute( $param );
+        return ( TRUE == $this -> statement -> execute( $param ) );
     }
     
     public function fetch()
     {
-        return empty( $this -> statement )
-            ? "Run without pdo connetcion"
-            : $this -> statement -> fetchAll( \PDO::FETCH_CLASS );        
+        return $this -> statement -> fetchAll( \PDO::FETCH_CLASS );
     }
 }

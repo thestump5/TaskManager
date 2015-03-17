@@ -6,42 +6,36 @@ namespace Database;
  *
  * @author Максим
  */
-
-require_once '/../Model/Database/Database.class.php';
 require_once '/../Model/Database/PDO.class.php';
+require_once '/../Model/Database/Database.class.php';
+require_once '/../Model/Database/QueryBuilder.class.php';
+
 
 class DatabaseTest extends \PHPUnit_Framework_TestCase
-{
+{    
     function testCanSQLIsBuild()
     {
         $Database = new Database();
-        $this -> assertInstanceOf( 'Database\QueryBuilder', $Database -> Build() );
+        $Query = new QueryBuilder();
+        $Query -> addpart( 'SELECT', "*" )
+               -> addpart( 'FROM', 'user' )
+               -> addpart( 'WHERE', ['id > 1', 'id < 10'] )
+               -> addpart( 'LIMIT', [10] );
+        
+        $this -> assertTrue( $Database -> Build( $Query ) );
     }
 
-    function testCanApplySQLQuery()
-    {
-        $Database = new Database();
-        $Query = $Database -> Build();
-        $this -> assertInternalType( 'string', $Database -> apply( $Query ) );
-    }
-    
     function testCanExecuteQuery()
     {
         $Database = new Database();
-        $Query = $Database -> Build()
-                -> addpart( "SELECT", $Database );
-        $Database ->apply( $Query );
-        $this -> assertNotEmpty( $Database -> sql );
-        $this -> assertNotInternalType( 'string', $Database -> execute() );
+        $Database -> sql = "SELECT * FROM user";
+        $this -> assertNotEmpty( $Database -> execute() );
     }    
 
     function testCanFetchResultQuery()
     {
         $Database = new Database();
-        $Query = $Database -> Build()
-                -> addpart( "SELECT", $Database );
-        $Database ->apply( $Query );
-        $this -> assertNotEmpty( $Database -> sql );
-        $this -> assertNotInternalType( 'string', $Database -> query() );
+        $Database -> sql = "SELECT * FROM user";
+        $this -> assertInternalType( 'array', $Database -> query() );
     }
 }
