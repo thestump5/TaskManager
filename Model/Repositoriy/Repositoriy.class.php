@@ -72,10 +72,36 @@ class Repositoriy
         return ( TRUE == ( empty( $obj ) && empty( $this -> Post ) ) );
     }
     
-    public function Save( &$obj )
+    public function Save( &$obj, $where = false )
     {
-        $obj -> id = 1;
-        return FALSE;
+        $db = new \Database\Database();
+        $Query = new \Database\QueryBuilder();
+        
+        $param = array_values( get_object_vars( $obj ) );
+        $values = [];
+        
+        for ($i=0; $i < count( get_object_vars( $obj ) ); $i++)
+        {
+            $values[] = '?';
+        }
+
+        $where = ( FALSE == $where )
+                    ? empty( $this -> Post ) ? 1 : $this -> Post
+                    : $where;
+        
+        $Query -> key_exclude[] = "SET";
+        
+        $Query -> addpart( 'INSERT INTO', strtolower( substr( get_class( $obj ), strpos(get_class( $obj ), "\\" ) + 1 ) ) )
+               -> addpart( 'FIELD', $obj)
+               -> addpart( 'VALUES', $values )
+               -> addpart( 'ON DUPLICATE KEY' )
+               -> addpart( 'UPDATE' )
+               -> addpart( 'SET', get_object_vars( $obj ) );
+        $db -> Build( $Query );     
+
+        $db -> param = $param;
+
+        return $db -> execute();
     }    
     
     public function Create( &$obj )

@@ -64,6 +64,7 @@ class Account
             {
                 $this -> IS_LOGGINED = TRUE;
                 $this -> SetTemplate( "User_Account" );
+                Repositoriy :: Instance() -> Save( $this -> User, [ 'id' => $this -> User -> id ] );
             }
         }
         else 
@@ -72,8 +73,8 @@ class Account
         }
         
         var_dump($this);
-        
-        return $this -> Check();
+        var_dump($this -> Check());
+        return ( TRUE == $this -> Check() );
     }
 
     /**

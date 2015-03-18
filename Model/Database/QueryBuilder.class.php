@@ -13,7 +13,7 @@ class QueryBuilder
     
     private static $Instance;
     
-    private $key_exclude = ["FIELD"];
+    public $key_exclude = ["FIELD"];
     
     function __construct() 
     {
@@ -70,15 +70,18 @@ class QueryBuilder
             case 'WHERE':
                 array_walk($array, function (&$item, $key)
                                             {   
-//                                                if ( empty( $item ) || empty( $key ) )
-//                                                {
-//                                                    $item = $item;
-//                                                    return;
-//                                                }
                                                 $item = $key . "=" . $item;
                                             }
                           );
                 $query .= implode( " AND ", $array );
+                break;
+            case 'SET':
+                array_walk($array, function (&$item, $key)
+                                            {   
+                                                $item = $key . "='" . $item . "'";
+                                            }
+                          );
+                $query .= implode( " , ", $array );
                 break;
             default:
                 $query .= implode( " , ", $array );

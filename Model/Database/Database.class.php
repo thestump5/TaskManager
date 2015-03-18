@@ -34,8 +34,16 @@ class Database
     
     public function execute()
     {
-        $this -> pdo_prepare( $this -> sql );
-        $execute = $this -> pdo_execute( $this -> param );
+        try
+        {
+            $this -> pdo_prepare( $this -> sql );
+            $execute = $this -> pdo_execute( $this -> param );
+        }
+        catch( PDOException $Exception )
+        {
+            throw new \Exception( $Exception->getMessage( ) , (int)$Exception->getCode( ) );
+        }
+        
         return ( bool )$execute;
     }
     
