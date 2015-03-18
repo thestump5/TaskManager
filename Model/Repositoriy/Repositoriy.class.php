@@ -1,4 +1,14 @@
 <?php
+/**
+ * TODO:
+ * set property filter who's contained SQL WHERE.
+ * set property repositoriy contain's external object.
+ * set method Remove who's remove data to db;
+ * set method Search;
+ * set method Flush who's save data to db;
+ * set method Dump who's get data from db;
+ * посмотреть паттерны состояния, цепочка обязанностей и др.
+ */
 
 namespace Repositoriy;
 use Database\Database,
