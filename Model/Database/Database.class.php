@@ -49,10 +49,17 @@ class Database
     
     public function query()
     {    
+        try
+        {
+            $this -> pdo_prepare( $this -> sql );
+            $this -> pdo_execute( $this -> param );
+            $fetch = $this -> fetch();
+        }
+        catch( PDOException $Exception )
+        {
+            throw new \Exception( $Exception->getMessage( ) , (int)$Exception->getCode( ) );
+        }
         
-        $this -> pdo_prepare( $this -> sql );
-        $this -> pdo_execute( $this -> param );
-        $fetch = $this -> fetch();
         return $fetch;
     }
 }

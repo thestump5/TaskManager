@@ -43,6 +43,7 @@ class Repositoriy
         $db = new Database();
         $Query = new QueryBuilder();
         
+        //Why this?
         $where = ( FALSE == $where )
                     ? empty( $this -> Post ) ? 1 : $this -> Post
                     : $where;
@@ -55,6 +56,7 @@ class Repositoriy
         
         $opened = $db ->query();
         
+        //It's trash!
         if ( !isset( $opened[0] ) )
         {
             return FALSE;
@@ -71,7 +73,8 @@ class Repositoriy
         unset( $obj );
         return ( TRUE == ( empty( $obj ) && empty( $this -> Post ) ) );
     }
-    
+
+    //What is array to where clause?
     public function Save( &$obj, $where = false )
     {
         $db = new \Database\Database();
@@ -106,14 +109,11 @@ class Repositoriy
     
     public function Create( &$obj )
     {
-        if ( !empty( $obj -> User ) )
-        {
-            $obj -> User -> Fill( $this -> Post );
-        }
-        return FALSE;
+        $this -> FillObject( $obj, $this -> Post );
+        return ( FALSE == empty( $obj ) );
     }
     
-    private function FillObject( &$obj, $stdClass )
+    private function FillObject( &$obj, $stdClass )//untested this
     {
         if ( !empty ( array_diff( array_keys( get_object_vars( $obj ) ), 
                         array_keys( get_object_vars( $stdClass ) ) ) ) )
