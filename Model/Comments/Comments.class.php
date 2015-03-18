@@ -32,7 +32,7 @@ class Comments
     
     public function Close()
     {
-        return ( FALSE == Repositoriy :: Instance() -> Close( $this ) );
+        return ( TRUE == Repositoriy :: Instance() -> Close( $this ) );
     }
     
     public function Save()

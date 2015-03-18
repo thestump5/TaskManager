@@ -31,7 +31,7 @@ class RepositoriyTest extends \PHPUnit_Framework_TestCase
     {
         $Repositoriy = new Repositoriy();
         $User = $this -> getMock( 'User\User' );
-        $this -> assertNotTrue( $Repositoriy -> Close( $User ) );
+        $this -> assertTrue( $Repositoriy -> Close( $User ) );
     }
     
     function testIsCreate()

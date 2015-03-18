@@ -55,7 +55,7 @@ class User
             $Account = new Account();
         }
         
-        $Account -> User = &self :: Instance();
+        $Account -> setUser( self :: Instance() );
         
         return $Account;
     }

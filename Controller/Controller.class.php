@@ -60,7 +60,7 @@ class Controller
      * User section
      */
     
-    private function UserLogin()
+    private function Login()
     {
         $User = User :: Instance() -> Account();
         if ( $User -> Open() )
@@ -71,14 +71,14 @@ class Controller
         View :: Instance() -> Output();
     }
     
-    private function UserLogout()
+    private function Logout()
     {
         User :: Instance() -> Account() -> Close();
         View:: Instance() -> tpl = empty($tpl) ? "User_OpenAccount" : $tpl;
         View :: Instance() -> Output();
     }
     
-    private function UserCreate()
+    private function Create()
     {
         $User = User :: Instance() -> Account();
         if ( $User -> Create() ) 
@@ -90,7 +90,7 @@ class Controller
         View :: Instance() -> Output();
     }    
     
-    private function UserSelect()
+    private function Select()
     {
         if ( ($User = ( User :: Instance() -> Account( ( new User() ) -> Account() ) ) ) )
         {
@@ -102,40 +102,11 @@ class Controller
         View :: Instance() -> Output(  );
     }
     
-    private function UserAuthentificate()
+    private function Authentificate()
     {
         ;
     }
-    
-    /**
-     * Project section
-     */
-    
-    private function ProjectOpen()
-    {
-        ;
-    }
-
-    private function ProjectAccept()
-    {
-        ;
-    }
-    
-    private function ProjectClose()
-    {
-        ;
-    }    
-
-    private function ProjectSelect()
-    {
-        ;
-    }
-    
-    private function ProjectLeave() //покинуть проект
-    {
-        ;
-    }
-    
+        
     /**
      * Test section
      */
@@ -143,9 +114,9 @@ class Controller
     private function Test()
     {
         $user = User::Instance();
-        $user -> Fill( ['id'=>9, 'name'=>'User', 'family'=>'Group', 'address'=>'Home'] );
+//        $user -> Fill( ['id'=>9, 'name'=>'User', 'family'=>'Group', 'address'=>'Home'] );
         
-        $db = new \Database\Database();
+//        $db = new \Database\Database();
 //        $Query = new \Database\QueryBuilder();
 //        $Query -> addpart( 'INSERT INTO', 'user')
 //               -> addpart( 'FIELD', $user)
@@ -169,14 +140,16 @@ class Controller
 //        $db -> apply( $Query );
 //        $subquery = "(".$db -> sql.")";
         
-        $Query = new \Database\QueryBuilder();
-        $Query -> addpart( 'SELECT', $user )
-               -> addpart( 'FROM', 'user' )
-               -> addpart( 'WHERE', ['id > 1', 'id < 10'] )
-               -> addpart( 'LIMIT', [10] );
-        $db -> Build( $Query );
-        $res = $db -> query();
-        var_dump($res);
+//        $Query = new \Database\QueryBuilder();
+//        $Query -> addpart( 'SELECT', $user )
+//               -> addpart( 'FROM', 'user' )
+//               -> addpart( 'WHERE', ['id > 1', 'id < 10'] )
+//               -> addpart( 'LIMIT', [10] );
+//        $db -> Build( $Query );
+//        $res = $db -> query();
+//        var_dump($res);
+        
+        \Repositoriy\Repositoriy::Instance()->Open( $user );
     }
     
     /**

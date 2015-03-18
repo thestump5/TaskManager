@@ -37,7 +37,7 @@ class Project
     public function Close( $pid )
     {
         $this -> Fill( $pid );
-        return ( FALSE == Repositoriy :: Instance() -> Close( $this ) );
+        return ( TRUE == Repositoriy :: Instance() -> Close( $this ) );
     }
 
     public function Save()

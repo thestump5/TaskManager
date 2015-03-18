@@ -1,15 +1,16 @@
 <?php
 
 namespace Repositoriy;
-
+use Database\Database,
+    Database\QueryBuilder;
 /**
  * Description of TaskRepositoriy
  *
  * @author Максим
  */
 
-class Repositoriy {
-    
+class Repositoriy 
+{
     public $repositoriy;
     
     protected $Task;
@@ -23,7 +24,7 @@ class Repositoriy {
     {
         if ( empty( $this -> Post ) )
         {
-            $this -> Post = &$_GET;//$_POST!
+            $this -> Post = &$_POST;
         }
     }
     
@@ -37,26 +38,38 @@ class Repositoriy {
        return self :: $Instance;
     }
     
-    public function Open( &$obj, &$fileds = [] )
+    public function Open( &$obj, $where = FALSE )
     {
-        $obj -> id = 1;
-        if ( empty( $fileds ) )
+        $db = new Database();
+        $Query = new QueryBuilder();
+        
+        $where = ( FALSE == $where )
+                    ? empty( $this -> Post ) ? 1 : $this -> Post
+                    : $where;
+        
+        $Query -> addpart( 'SELECT', $obj )
+               -> addpart( 'FROM', strtolower( substr( get_class( $obj ), strpos(get_class( $obj ), "\\" ) + 1 ) ) )
+               -> addpart( 'WHERE', $where )
+               -> addpart( 'LIMIT', [1] );
+        $db -> Build( $Query );
+        
+        $opened = $db ->query();
+        
+        if ( !isset( $opened[0] ) )
         {
-            $fileds = [];
+            return FALSE;
         }
         
-        return FALSE;
+        $this ->FillObject( $obj, $opened[0] );
+        
+        return ( FALSE == empty( $obj ) );
     }
 
     public function Close( &$obj )
     {
-        //close db connection and post array
-        /*unset( $this -> Post );*/
-        
-        //Unset obj
+        unset( $this -> Post );
         unset( $obj );
-        
-        return ( TRUE == !empty( $obj ) );
+        return ( TRUE == ( empty( $obj ) && empty( $this -> Post ) ) );
     }
     
     public function Save( &$obj )
@@ -72,5 +85,19 @@ class Repositoriy {
             $obj -> User -> Fill( $this -> Post );
         }
         return FALSE;
-    }    
+    }
+    
+    private function FillObject( &$obj, $stdClass )
+    {
+        if ( !empty ( array_diff( array_keys( get_object_vars( $obj ) ), 
+                        array_keys( get_object_vars( $stdClass ) ) ) ) )
+        {
+            throw new \Exception("Operation failed: classes difirent");
+        }
+        
+        foreach ( $stdClass as $key=>$value )
+        {
+            $obj -> $key = $value;
+        }
+    }
 }

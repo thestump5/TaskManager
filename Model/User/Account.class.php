@@ -13,12 +13,12 @@ class Account
     public $id;
     public $attribute; //not used
     
-    public $Role;
-    public $User;
+    private $Role;
+    private $User;
     
-    public $tpl = NULL;
+    private $tpl = NULL;
     
-    public $IS_LOGGINED = false;
+    private $IS_LOGGINED = false;
     
     function __construct() 
     {
@@ -27,6 +27,16 @@ class Account
             $this -> Role = new Role();
         }
     }    
+    
+    public function setUser( &$User ) //untested
+    {
+        $this -> User = $User;
+    }
+    
+//    public function __get( $name )
+//    {
+//        return $this -> $name;
+//    }
     
     /**
      * Check()
@@ -48,9 +58,22 @@ class Account
     
     public function Open() //Test edition!
     {
-        if ( $this -> Check() ) return TRUE;
-        $this -> SetTemplate( "User_Account" );
-        return ( FALSE == Repositoriy :: Instance() -> Open( $this ));
+        if ( TRUE == Repositoriy :: Instance() -> Open( $this ) )
+        {
+            if ( Repositoriy :: Instance() -> Open( $this -> User, [ 'id' => $this -> id ] ) )
+            {
+                $this -> IS_LOGGINED = TRUE;
+                $this -> SetTemplate( "User_Account" );
+            }
+        }
+        else 
+        {
+            $this -> IS_LOGGINED = FALSE;
+        }
+        
+        var_dump($this);
+        
+        return $this -> Check();
     }
 
     /**

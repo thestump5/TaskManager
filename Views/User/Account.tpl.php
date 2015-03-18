@@ -1,8 +1,8 @@
 <html>
     <body>
         <h1>User:</h1>
-        <a href="?action=UserLogout">Logout</a>
+        <a href="?action=Logout">Logout</a>
         <br />
-        <a href="?action=UserSelect">Select another</a>
+        <a href="?action=Select">Select another</a>
     </body>
 </html>

@@ -68,6 +68,16 @@ class QueryBuilder
                 $query .= implode( " ON ", $array );
                 break;
             case 'WHERE':
+                array_walk($array, function (&$item, $key)
+                                            {   
+//                                                if ( empty( $item ) || empty( $key ) )
+//                                                {
+//                                                    $item = $item;
+//                                                    return;
+//                                                }
+                                                $item = $key . "=" . $item;
+                                            }
+                          );
                 $query .= implode( " AND ", $array );
                 break;
             default:

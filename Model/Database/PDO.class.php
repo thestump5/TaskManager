@@ -35,6 +35,11 @@ trait PDO
         return ( bool ) $this -> pdo;
     }
     
+    public function close()
+    {
+        unset( $this -> pdo );
+    }
+    
     public function prepare( $sql )
     {
         return ( TRUE == ( $this -> statement = $this -> pdo -> prepare( $sql ) ) );
