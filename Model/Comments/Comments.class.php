@@ -19,7 +19,7 @@ class Comments extends Message
 
     public function Create()
     {
-        return ( FALSE == Repositoriy :: Instance() -> Create( $this ) );
+        return ( TRUE == Repositoriy :: Instance() -> Create( $this ) );
     }
     
     public function Open()

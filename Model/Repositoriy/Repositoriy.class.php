@@ -122,7 +122,7 @@ class Repositoriy
     
     public function Create( &$obj )
     {
-        $this -> FillObject( $obj, $this -> Post );
+//        $this -> FillObject( $obj, $this -> Post );
         return ( FALSE == empty( $obj ) );
     }
     
