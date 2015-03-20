@@ -9,7 +9,6 @@ namespace Comments;
 require_once '/../Model/Comments/Message.class.php';
 require_once '/../Model/Comments/Comments.class.php';
 
-
 class CommentsTest extends \PHPUnit_Framework_TestCase
 {
     function testIsCommentsCreated()
