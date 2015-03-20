@@ -5,9 +5,14 @@ namespace Comments;
  * Description of Test_CommentsTest
  * @author Максим
  */
-require_once '/../Model/User/User.class.php';
+
 require_once '/../Model/Comments/Comments.class.php';
+require_once '/../Model/Comments/Message.class.php';
 require_once '/../Model/Repositoriy/Repositoriy.class.php';
+
+require_once '/../Model/Database/PDO.class.php';
+require_once '/../Model/Database/Database.class.php';
+require_once '/../Model/Database/QueryBuilder.class.php';
 
 class CommentsTest extends \PHPUnit_Framework_TestCase
 {
@@ -55,11 +60,11 @@ class CommentsTest extends \PHPUnit_Framework_TestCase
 //        $Comments = new Comments();
 //        $this -> assertTrue( $Comments -> AddMessage( ['id' => 1, 'ansver' => 0, 'date' =>  microtime(true), 'text' => 'hello'] ) );
 //    }    
-//    
-//    function testCanMoveMessage()
-//    {
-//        $Comments = new Comments();
-//        $Comments -> AddMessage( ['id' => 1, 'ansver' => 0, 'date' =>  microtime(true), 'text' => 'hello'] );
-//        $this -> assertTrue( $Comments -> MoveMessage() );   
-//    }
+    
+    function testCanMoveMessage()
+    {
+        $Comments = new Comments();
+        $Comments -> AddMessage( ['id' => 1, 'ansver' => 0, 'date' =>  microtime(true), 'text' => 'hello'] );
+        $this -> assertTrue( $Comments -> MoveMessage() );   
+    }
 }

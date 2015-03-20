@@ -5,7 +5,6 @@ namespace Comments;
 
 /**
  * Description of Message
- *
  * @author Максим
  */
 class Message 
