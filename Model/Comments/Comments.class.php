@@ -5,20 +5,17 @@ use Repositoriy\Repositoriy;
 
 /**
  * Description of Task
- *
  * @author Максим
  */
 
-class Comments
+class Comments extends Message
 {
     
     public $id;
     public $ansver;
     public $date;
     
-    protected $User;
-    public $Message = [];
-    
+    protected $User;    
 
     public function Create()
     {
@@ -40,21 +37,27 @@ class Comments
         return ( FALSE == Repositoriy :: Instance() -> Save( $this ) );
     }    
 
-    public function AddMessage( $_Message )
+    public function AddMessage( $Message )
     {
-        $count = count( $this -> Message );
-        $ncount = array_push( $this -> Message, $_Message );
-        return ( ( $count + 1 ) == $ncount );
+        foreach ( $Message as $key => $message )
+        {
+            echo $key, $message, "<br />";
+            $this -> $key = $message;
+        }
+        
+        return ( FALSE == empty( $this -> text ) );
     }
  
-    public function MoveMessage( $_Message )
+    public function MoveMessage()
     {
-        $count = count( $this -> Message );
-        if ( TRUE !== ( $key = array_search( $_Message, $this -> Message ) ) )
+        foreach ( $this as $key => $message )
         {
-            unset( $this -> Message[ $key ] );
+            echo $key, $this->$key, ":";
+            $this -> $key = NULL;
+            echo $key, $this->$key, "<br />";
         }
-        return ( ( $count - 1 ) == ( count( $this -> Message ) ) );
+
+        return ( TRUE == empty( $this -> text ) );
     }
     
     public function AcceptUser( $User )

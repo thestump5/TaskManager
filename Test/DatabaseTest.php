@@ -3,7 +3,6 @@
 namespace Database;
 /**
  * Description of Test_DatabaseTest
- *
  * @author Максим
  */
 require_once '/../Model/Database/PDO.class.php';

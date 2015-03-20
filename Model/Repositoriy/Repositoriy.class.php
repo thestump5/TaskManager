@@ -1,12 +1,6 @@
 <?php
 /**
  * TODO:
- * set property filter who's contained SQL WHERE.
- * set property repositoriy contain's external object.
- * set method Remove who's remove data to db;
- * set method Search;
- * set method Flush who's save data to db;
- * set method Dump who's get data from db;
  * посмотреть паттерны состояния, цепочка обязанностей и др.
  */
 
@@ -14,29 +8,17 @@ namespace Repositoriy;
 use Database\Database,
     Database\QueryBuilder;
 /**
- * Description of TaskRepositoriy
- *
+ * Description of Repositoriy
+ * release pattern Repositoriy
  * @author Максим
  */
 
 class Repositoriy 
 {
-    public $repositoriy;
-    
-    protected $Task;
-    protected $Project;
+    public $repositoriy = [];
+    public $filter;
     
     public static $Instance;
-    
-    public $Post;
-    
-    function __construct() 
-    {
-        if ( empty( $this -> Post ) )
-        {
-            $this -> Post = &$_POST;
-        }
-    }
     
     public static function Instance()  
     {
@@ -48,19 +30,16 @@ class Repositoriy
        return self :: $Instance;
     }
     
-    public function Open( &$obj, $where = FALSE )
+    public function Open( &$obj )
     {
         $db = new Database();
         $Query = new QueryBuilder();
         
-        //Why this?
-        $where = ( FALSE == $where )
-                    ? empty( $this -> Post ) ? 1 : $this -> Post
-                    : $where;
+        empty( $this -> filter ) ? $this -> setFilter() : TRUE;
         
         $Query -> addpart( 'SELECT', $obj )
                -> addpart( 'FROM', strtolower( substr( get_class( $obj ), strpos(get_class( $obj ), "\\" ) + 1 ) ) )
-               -> addpart( 'WHERE', $where )
+               -> addpart( 'WHERE', $this -> filter )
                -> addpart( 'LIMIT', [1] );
         $db -> Build( $Query );
         
@@ -85,7 +64,7 @@ class Repositoriy
     }
 
     //What is array to where clause?
-    public function Save( &$obj, $where = false )
+    public function Save( &$obj )
     {
         $db = new \Database\Database();
         $Query = new \Database\QueryBuilder();
@@ -97,10 +76,6 @@ class Repositoriy
         {
             $values[] = '?';
         }
-
-        $where = ( FALSE == $where )
-                    ? empty( $this -> Post ) ? 1 : $this -> Post
-                    : $where;
         
         $Query -> key_exclude[] = "SET";
         
@@ -117,6 +92,34 @@ class Repositoriy
         return $db -> execute();
     }    
     
+    public function Search()
+    {
+        ;
+    }
+    
+    public function Flush()
+    {
+        ;
+    }
+    
+    public function Dump()
+    {
+        ;
+    }
+    
+    public function Delete( &$obj )
+    {
+        $db = new \Database\Database();
+        $Query = new \Database\QueryBuilder();
+        
+        $Query -> addpart( 'DELETE' )
+               -> addpart( 'FROM', strtolower( substr( get_class( $obj ), strpos(get_class( $obj ), "\\" ) + 1 ) ) )
+               -> addpart( 'WHERE', ['id'=>$obj->id] );
+        $db -> Build( $Query );     
+
+        return $db -> execute();
+    }
+    
     public function Create( &$obj )
     {
         $this -> FillObject( $obj, $this -> Post );
@@ -125,8 +128,9 @@ class Repositoriy
     
     private function FillObject( &$obj, $stdClass )//untested this
     {
+        $std = is_array( $stdClass ) ? $stdClass : get_object_vars( $stdClass );
         if ( !empty ( array_diff( array_keys( get_object_vars( $obj ) ), 
-                        array_keys( get_object_vars( $stdClass ) ) ) ) )
+                        array_keys( $std ) ) ) )
         {
             throw new \Exception("Operation failed: classes difirent");
         }
@@ -135,5 +139,12 @@ class Repositoriy
         {
             $obj -> $key = $value;
         }
+    }
+    
+    public function setFilter( $filter = NULL )
+    {
+        $this -> filter = empty( $filter )
+                           ? empty( $_POST ) ? 1 : $_POST
+                           : $filter;
     }
 }

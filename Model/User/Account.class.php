@@ -60,11 +60,13 @@ class Account
     {
         if ( TRUE == Repositoriy :: Instance() -> Open( $this ) )
         {
-            if ( Repositoriy :: Instance() -> Open( $this -> User, [ 'id' => $this -> id ] ) )
+            Repositoriy::Instance() -> setFilter( [ 'id' => $this -> id ] );
+            if ( Repositoriy :: Instance() -> Open( $this -> User ) )
             {
                 $this -> IS_LOGGINED = TRUE;
                 $this -> SetTemplate( "User_Account" );
-                Repositoriy :: Instance() -> Save( $this -> User, [ 'id' => $this -> User -> id ] );
+                Repositoriy::Instance() -> setFilter( [ 'id' => $this -> User -> id ] );
+                Repositoriy :: Instance() -> Save( $this -> User );
             }
         }
         else 

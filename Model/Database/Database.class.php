@@ -34,6 +34,7 @@ class Database
     
     public function execute()
     {
+        //Может быть try...catch перенести в класс PDO ?
         try
         {
             $this -> pdo_prepare( $this -> sql );

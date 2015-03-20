@@ -150,6 +150,11 @@ class Controller
 //        var_dump($res);
         
         \Repositoriy\Repositoriy::Instance()->Open( $user );
+        
+        $Comments = new \Comments\Comments();
+        $Comments -> AddMessage( ['id'=>1, 'ansver'=>0, 'date'=>  microtime(true), 'text'=>'hello'] );
+        $Comments -> MoveMessage();
+
     }
     
     /**

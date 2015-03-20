@@ -11,13 +11,13 @@ class QueryBuilder
     public $sql;
     public $field = [];
     
-    private static $Instance;
+    private $Instance;
     
     public $key_exclude = ["FIELD"];
     
     function __construct() 
     {
-    //    static :: $Instance = $this;
+        $this -> Instance = $this;
     }
     
     public function addpart( $key, $value = "" )
@@ -25,7 +25,7 @@ class QueryBuilder
         $this -> field[ $key ][] = is_object( $value ) 
                                     ? array_keys( get_object_vars( $value ) ) 
                                     : ( array )$value;
-        return $this;
+        return $this -> Instance;
     }
     
     //Когда будут сделаны все вышеописанные функции
@@ -38,7 +38,7 @@ class QueryBuilder
             foreach ( $field as $_field )
             {
                 $fields[ $key ] =  " " . $key . " ";
-                $fields[ $key ] .= $this -> prepare( $key, $_field );
+                $fields[ $key ] .= $this -> compare( $key, $_field );
             }
         }
         
@@ -50,8 +50,10 @@ class QueryBuilder
         return ( TRUE == $this -> sql );
     }
     
-    //TODO: rename function:
-    private function prepare( $key, array $array )
+    //TODO: Мне кажется эта функция может быть
+    //лучше:
+    //может быть по стилю Юии applySelect, applyFrom etc/ ?
+    private function compare( $key, array $array )
     {
         $query = "";
         switch ($key)
