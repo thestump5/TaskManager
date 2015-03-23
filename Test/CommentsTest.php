@@ -11,29 +11,29 @@ require_once '/../Model/Comments/Comments.class.php';
 
 class CommentsTest extends \PHPUnit_Framework_TestCase
 {
-    function testIsCommentsCreated()
-    {
-        $Comments = new Comments();
-        $this -> assertTrue( $Comments -> Create() );
-    }
-
-    function testIsCommentsOpen()
-    {
-        $Comments = new Comments();
-        $this -> assertTrue( $Comments -> Open() );
-    }
-    
-    function testIsCommentsClose()
-    {
-        $Comments = new Comments();
-        $this -> assertTrue( $Comments -> Close() );
-    }
-    
-    function testIsCommentsSaved()
-    {
-        $Comments = new Comments();
-        $this -> assertTrue( $Comments -> Save() );
-    }
+//    function testIsCommentsCreated()
+//    {
+//        $Comments = new Comments();
+//        $this -> assertTrue( $Comments -> Create() );
+//    }
+//
+//    function testIsCommentsOpen()
+//    {
+//        $Comments = new Comments();
+//        $this -> assertTrue( $Comments -> Open() );
+//    }
+//    
+//    function testIsCommentsClose()
+//    {
+//        $Comments = new Comments();
+//        $this -> assertTrue( $Comments -> Close() );
+//    }
+//    
+//    function testIsCommentsSaved()
+//    {
+//        $Comments = new Comments();
+//        $this -> assertTrue( $Comments -> Save() );
+//    }
 
     function testIsAcceptedUser()
     {

@@ -3,7 +3,6 @@
 namespace Controller;
 use View\View;
 use User\User;
-use Project\Project;
 /**
  * Description of Controller
  *
@@ -37,24 +36,6 @@ class Controller
         View:: Instance() -> tpl = 'User_OpenAccount';
         View :: Instance() -> Output();
     }
-    
-    /**
-     * Test function for call class method
-     */
-//    private function Call()
-//    {
-//        if ( !array_key_exists( 'method', $this -> request ) )
-//            return FALSE;
-//        list( $class, $method ) = explode( "::", $this -> request['method'] );
-//        require_once "/../Model/$class/$class.class.php";
-//        $class = "\\" . $class . "\\" . $class;
-//        $c = new $class();
-//        
-//        $param = array_key_exists( 'param', $this -> request )
-//                ? explode(",", $this -> request['param'])
-//                : '';
-//        call_user_func( $c->$method() );
-//    }
     
     /*
      * User section
@@ -140,14 +121,14 @@ class Controller
 //        $db -> apply( $Query );
 //        $subquery = "(".$db -> sql.")";
         
-//        $Query = new \Database\QueryBuilder();
-//        $Query -> addpart( 'SELECT', $user )
-//               -> addpart( 'FROM', 'user' )
-//               -> addpart( 'WHERE', ['id > 1', 'id < 10'] )
-//               -> addpart( 'LIMIT', [10] );
-//        $db -> Build( $Query );
-//        $res = $db -> query();
-//        var_dump($res);
+        $Query = new \Database\QueryBuilder();
+        $Query -> addpart( 'SELECT', $user )
+               -> addpart( 'FROM', 'user' )
+               -> addpart( 'WHERE', ['id > 1', 'id < 10'] )
+               -> addpart( 'LIMIT', [10] );
+        $db -> Build( $Query );
+        $res = $db -> query();
+        var_dump($res);
         
         \Repositoriy\Repositoriy::Instance()->Open( $user );
     }

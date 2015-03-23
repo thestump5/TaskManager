@@ -11,31 +11,27 @@ use Repositoriy\Repositoriy;
 class Comments extends Message
 {
     
-    public $id;
-    public $ansver;
-    public $date;
-    
-    protected $User;    
+    public $id;    
 
-    public function Create()
-    {
-        return ( TRUE == Repositoriy :: Instance() -> Create( $this ) );
-    }
-    
-    public function Open()
-    {
-        return ( FALSE == Repositoriy :: Instance() -> Open( $this ) );
-    }
-    
-    public function Close()
-    {
-        return ( TRUE == Repositoriy :: Instance() -> Close( $this ) );
-    }
-    
-    public function Save()
-    {
-        return ( FALSE == Repositoriy :: Instance() -> Save( $this ) );
-    }    
+//    public function Create()
+//    {
+//        return ( TRUE == Repositoriy :: Instance() -> Create( $this ) );
+//    }
+//    
+//    public function Open()
+//    {
+//        return ( FALSE == Repositoriy :: Instance() -> Open( $this ) );
+//    }
+//    
+//    public function Close()
+//    {
+//        return ( TRUE == Repositoriy :: Instance() -> Close( $this ) );
+//    }
+//    
+//    public function Save()
+//    {
+//        return ( FALSE == Repositoriy :: Instance() -> Save( $this ) );
+//    }    
 
     public function AddMessage( $Message )
     {
@@ -60,18 +56,18 @@ class Comments extends Message
         return ( TRUE == empty( $this -> text ) );
     }
     
-    public function AcceptUser( $User )
-    {
-        $this -> User  = $User;
-        return ( FALSE == empty( $this -> User ) );      
-    }
-    
-    public function DisclaimeUser( $User )
-    {
-        if ( $this -> User === $User )
-        {
-            $this -> User = NULL;
-        }
-        return ( TRUE == empty( $this -> User ) );
-    }   
+//    public function AcceptUser( $User )
+//    {
+//        $this -> User  = $User;
+//        return ( FALSE == empty( $this -> User ) );      
+//    }
+//    
+//    public function DisclaimeUser()
+//    {
+//        if ( TRUE == $this -> User )
+//        {
+//            $this -> User = NULL;
+//        }
+//        return ( TRUE == empty( $this -> User ) );
+//    }   
 }

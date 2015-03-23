@@ -37,7 +37,7 @@ trait PDO
     
     public function close()
     {
-        unset( $this -> pdo );
+        $this -> pdo = NULL;
     }
     
     public function prepare( $sql )
