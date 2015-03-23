@@ -12,7 +12,6 @@ class Account
 {
     public $id;
     public $pw;
-    public $attribute; //not used
     
     private $Role;
     private $User;
