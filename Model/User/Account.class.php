@@ -11,6 +11,7 @@ use Repositoriy\Repositoriy;
 class Account
 {
     public $id;
+    public $pw;
     public $attribute; //not used
     
     private $Role;
@@ -87,9 +88,8 @@ class Account
     
     public function Close() 
     {
-//        if ( !$this -> Check() ) return TRUE;
-//        $this -> SetTemplate( "User_OpenAccount" );
-        return ( FALSE == Repositoriy :: Instance() -> Close( $this ) );
+        $this -> SetTemplate( "User_OpenAccount" );
+        return ( TRUE == Repositoriy :: Instance() -> Close( $this ) );
     }
     
     /**
@@ -100,8 +100,15 @@ class Account
     
     public function Save() 
     {
+        $isSaved = FALSE;
         $this -> SetTemplate( "User_OpenedAccount" );
-        return ( FALSE == Repositoriy :: Instance() -> Save( $this ) );
+        $Rep = Repositoriy :: Instance();
+        if ( TRUE == $Rep -> Save( $this -> User ) )
+        {
+            $isSaved = Repositoriy :: Instance() -> Save( $this );
+        }
+        
+        return $isSaved;
     }
 
     /**
@@ -110,10 +117,16 @@ class Account
      * @return bool wheather is account created
      */
     
-    public function Create() 
+    public function Create( $obj, $std = NULL ) 
     {
-        $this -> SetTemplate( "User_CreateAccount" );
-        return ( FALSE == Repositoriy :: Instance() -> Create( $this ) );
+        $isCreated = FALSE;
+        if ( TRUE == Repositoriy :: Instance() -> Create( $obj, $std ) )
+        {
+            $this -> SetTemplate( "User_OpenAccount" );
+            $isCreated = TRUE;
+        }
+        
+        return $isCreated;
     }
     
     /**

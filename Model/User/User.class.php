@@ -9,7 +9,7 @@ use Project\Project;
 
 class User
 {
-    public $id;
+    private $id = -1;
     public $name;
     public $family;
     public $address;
@@ -29,6 +29,16 @@ class User
        }
        
        return self :: $Instance;
+    }    
+
+    public function __set( $name, $value )
+    {
+        $this -> $name = $value;
+    }
+    
+    public function __get( $name )
+    {
+        return $this -> $name;
     }    
     
     public function Fill( array $array )

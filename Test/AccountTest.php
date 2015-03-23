@@ -19,8 +19,9 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     {
         $Account = new Account();
         
-        $User = new User(); 
+        $User = new User();
         $Account -> setUser( $User );
+        
         $this -> assertTrue( $Account -> Open() );
         $this -> assertNotEmpty( $Account -> id );
     }    
@@ -28,23 +29,28 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     function testAccountIsClose()
     {
         $Account = new Account();
-        $Account -> setUser( $this -> getMock( 'User\User' ) );
+        $User = new User();
+        $Account -> setUser( $User );
         $this -> assertTrue( $Account -> Close() );
     }    
 
     function testAccountIsSave()
     {
         $Account = new Account();
-        //$Account -> setUser( $this -> getMock( 'User\User' ) );
+        $User = new User();
+        $Account -> setUser( $User );
+        $Account -> Open();
         $this -> assertTrue( $Account -> Save() );
     }    
 
     function testAccountIsCreate()
     {
         $Account = new Account();
-        //$Account -> setUser( $this -> getMock( 'User\User' ) );
-        $_POST['name'] = 'name';
-        $this -> assertTrue( $Account -> Create() );
+        $std = new \stdClass();
+        $std -> id = -1;
+        $std -> pw = 'pw';
+        $std -> attribute = 'attr';
+        $this -> assertTrue( $Account -> Create( $Account, $std ) );
     }    
     
     function testCanCheckEqualseAccountUser()

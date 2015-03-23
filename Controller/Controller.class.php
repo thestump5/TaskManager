@@ -54,20 +54,25 @@ class Controller
     
     private function Logout()
     {
-        User :: Instance() -> Account() -> Close();
+        $Account = User :: Instance() -> Account();
+        $Account -> Close();
+        
+        $tpl = $Account -> GetTemplate();
+        
         View:: Instance() -> tpl = empty($tpl) ? "User_OpenAccount" : $tpl;
         View :: Instance() -> Output();
     }
     
     private function Create()
     {
-        $User = User :: Instance() -> Account();
-        if ( $User -> Create() ) 
+        $Account = User :: Instance() -> Account();
+        
+        if ( $Account -> Create( User :: Instance() ) ) 
         {
-            $tpl = $User -> GetTemplate();
+            $tpl = $Account -> GetTemplate();
         }
 
-        View:: Instance() -> tpl = empty( $tpl ) ? "None_Empty" : $tpl;
+        View:: Instance() -> tpl = empty( $tpl ) ? "User_CreateAccount" : $tpl;
         View :: Instance() -> Output();
     }    
     
@@ -133,6 +138,7 @@ class Controller
         $Account = new \User\Account();
         $Account ->setUser($user);
         $Account -> Open();
+        $Account -> Create();
         //\Repositoriy\Repositoriy::Instance()->Open(  );
     }
     

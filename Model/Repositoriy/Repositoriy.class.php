@@ -58,9 +58,9 @@ class Repositoriy
 
     public function Close( &$obj )
     {
-        unset( $this -> Post );
-        unset( $obj );
-        return ( TRUE == ( empty( $obj ) && empty( $this -> Post ) ) );
+        $this -> filter = NULL;
+        $obj = NULL;
+        return ( TRUE == ( empty( $obj ) && empty( $this -> filter ) ) );
     }
 
     //What is array to where clause?
@@ -89,17 +89,21 @@ class Repositoriy
 
         $db -> param = $param;
 
-        return $db -> execute();
+        $isSaved = $db -> execute();
+        
+        $obj -> id = $db -> lastId();
+        
+        return $isSaved;
     }    
     
     public function Search()
     {
-        ;
+        return TRUE;
     }
     
     public function Flush()
     {
-        ;
+        return TRUE;
     }
     
     public function Dump()
@@ -120,25 +124,50 @@ class Repositoriy
         return $db -> execute();
     }
     
-    public function Create( &$obj )
+    public function Create( &$obj, $stdClass = NULL )
     {
-//        $this -> FillObject( $obj, $this -> Post );
-        return ( FALSE == empty( $obj ) );
+        $this -> FillObject( $obj, $stdClass );
+        return $this -> Save( $obj );
     }
     
-    private function FillObject( &$obj, $stdClass )//untested this
+    private function FillObject( &$obj, $stdClass = NULL )//untested this
     {
-        $std = is_array( $stdClass ) ? $stdClass : get_object_vars( $stdClass );
-        if ( !empty ( array_diff( array_keys( get_object_vars( $obj ) ), 
-                        array_keys( $std ) ) ) )
+        if ( empty( $stdClass ) )
         {
-            throw new \Exception("Operation failed: classes difirent");
+            if ( empty( $_POST ) )
+            {
+                $stdClass = array();
+            }
+            else
+            {
+                $stdClass = $_POST;
+            }
+        }
+        else
+        {
+            if ( is_array( $stdClass ) )
+            {
+                $stdClass = $stdClass;
+            }
+            else
+            {
+                $stdClass = get_object_vars( $stdClass );
+            }
         }
         
+        if ( !empty ( array_diff( array_keys( get_object_vars( $obj ) ), 
+                        array_keys( $stdClass ) ) ) )
+        {
+            //throw new \Exception("Operation failed: classes difirent");
+            return FALSE;
+        }
+                
         foreach ( $stdClass as $key=>$value )
         {
             $obj -> $key = $value;
         }
+        
+        return TRUE;
     }
     
     public function setFilter( $filter = NULL )

@@ -1,8 +1,7 @@
 <html>
     <body>
         <h1>Create form:</h1>
-        <form action="http://localhost" method="get">
-            <input type="hidden" value="UserCreate" name="action" />
+        <form action="http://localhost?action=Create" method="post">
             <input name="name" style="margin-top:10px" />
             <br />
             <input name="family" style="margin-top:10px" />

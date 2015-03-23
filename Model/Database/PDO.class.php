@@ -54,4 +54,9 @@ trait PDO
     {
         return $this -> statement -> fetchAll( \PDO::FETCH_CLASS );
     }
+    
+    public function lastId()
+    {
+        return $this -> pdo -> lastInsertId();
+    }
 }
