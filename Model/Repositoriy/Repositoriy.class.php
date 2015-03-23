@@ -22,12 +22,12 @@ class Repositoriy
     
     public static function Instance()  
     {
-       if ( empty( self :: $Instance ))
+       if ( empty( static :: $Instance ))
        {
-           self :: $Instance = new Repositoriy();
+           static :: $Instance = new Repositoriy();
        }
        
-       return self :: $Instance;
+       return static :: $Instance;
     }
     
     public function Open( &$obj )
@@ -144,7 +144,7 @@ class Repositoriy
     public function setFilter( $filter = NULL )
     {
         $this -> filter = empty( $filter )
-                           ? empty( $_POST ) ? 1 : $_POST
+                           ? empty( $_POST ) ? [1=>1] : $_POST
                            : $filter;
     }
 }

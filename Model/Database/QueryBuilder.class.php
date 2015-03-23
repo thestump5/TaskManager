@@ -70,6 +70,7 @@ class QueryBuilder
                 $query .= implode( " ON ", $array );
                 break;
             case 'WHERE':
+                //TODO: in condition > and <.
                 array_walk($array, function (&$item, $key)
                                             {   
                                                 $item = $key . "=" . $item;

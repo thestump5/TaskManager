@@ -58,15 +58,15 @@ class Account
     
     public function Open() //Test edition!
     {
-        if ( TRUE == Repositoriy :: Instance() -> Open( $this ) )
+        $Rep = Repositoriy :: Instance();
+        if ( TRUE == $Rep -> Open( $this ) )
         {
-            Repositoriy::Instance() -> setFilter( [ 'id' => $this -> id ] );
-            if ( Repositoriy :: Instance() -> Open( $this -> User ) )
+            $Rep -> setFilter( [ 'id' => $this -> id ] );
+            if (  TRUE == $Rep -> Open( $this -> User ) )
             {
+                
                 $this -> IS_LOGGINED = TRUE;
                 $this -> SetTemplate( "User_Account" );
-                Repositoriy::Instance() -> setFilter( [ 'id' => $this -> User -> id ] );
-                Repositoriy :: Instance() -> Save( $this -> User );
             }
         }
         else 
@@ -75,7 +75,6 @@ class Account
         }
         
         var_dump($this);
-        var_dump($this -> Check());
         return ( TRUE == $this -> Check() );
     }
 
@@ -88,8 +87,8 @@ class Account
     
     public function Close() 
     {
-        if ( !$this -> Check() ) return TRUE;
-        $this -> SetTemplate( "User_OpenAccount" );
+//        if ( !$this -> Check() ) return TRUE;
+//        $this -> SetTemplate( "User_OpenAccount" );
         return ( FALSE == Repositoriy :: Instance() -> Close( $this ) );
     }
     

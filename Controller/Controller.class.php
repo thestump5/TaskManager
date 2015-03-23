@@ -95,10 +95,10 @@ class Controller
     private function Test()
     {
         $user = User::Instance();
-//        $user -> Fill( ['id'=>9, 'name'=>'User', 'family'=>'Group', 'address'=>'Home'] );
+        $user -> Fill( ['id'=>9, 'name'=>'User', 'family'=>'Group', 'address'=>'Home'] );
         
-//        $db = new \Database\Database();
-//        $Query = new \Database\QueryBuilder();
+        $db = new \Database\Database();
+        $Query = new \Database\QueryBuilder();
 //        $Query -> addpart( 'INSERT INTO', 'user')
 //               -> addpart( 'FIELD', $user)
 //               -> addpart( 'VALUES', ['?','?','?','?'] );
@@ -109,10 +109,10 @@ class Controller
 //        $db = new \Database\Database();
 //        $Query = new \Database\QueryBuilder();
 //        $Query -> addpart( 'UPDATE', 'user')
-//               -> addpart( 'SET', ['id=?', 'name=?', 'family=?', 'address=?'])
-//               -> addpart( 'WHERE', ['id=1'] );
+//               -> addpart( 'SET', ['id'=>'?', 'name'=>'?', 'family'=>'?', 'address'=>'?'])
+//               -> addpart( 'WHERE', ['id'=>'4'] );
 //        $db -> Build( $Query );
-//        $db -> param = [4, 'User', 'Group', 'Home'];
+//        $db -> param = [1, 'User', 'Group', 'Home'];
 //        $db -> execute();        
         
 //        $Query = $db -> Build()
@@ -121,16 +121,19 @@ class Controller
 //        $db -> apply( $Query );
 //        $subquery = "(".$db -> sql.")";
         
-        $Query = new \Database\QueryBuilder();
-        $Query -> addpart( 'SELECT', $user )
-               -> addpart( 'FROM', 'user' )
-               -> addpart( 'WHERE', ['id > 1', 'id < 10'] )
-               -> addpart( 'LIMIT', [10] );
-        $db -> Build( $Query );
-        $res = $db -> query();
-        var_dump($res);
+//        $Query = new \Database\QueryBuilder();
+//        $Query -> addpart( 'SELECT', $user )
+//               -> addpart( 'FROM', 'user' )
+//               -> addpart( 'WHERE', ['id'=>'2'] )
+//               -> addpart( 'LIMIT', [10] );
+//        $db -> Build( $Query );
+//        $res = $db -> query();
+//        var_dump($res);
         
-        \Repositoriy\Repositoriy::Instance()->Open( $user );
+        $Account = new \User\Account();
+        $Account ->setUser($user);
+        $Account -> Open();
+        //\Repositoriy\Repositoriy::Instance()->Open(  );
     }
     
     /**
