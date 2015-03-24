@@ -13,7 +13,7 @@ class Autoload
     
     function __construct()
     {
-        $this -> doc_root = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+        $this -> doc_root = realpath( dirname( __DIR__ ) . "/../www/" );
         
         $this -> load();
         $this -> register();
