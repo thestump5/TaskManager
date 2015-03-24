@@ -76,13 +76,11 @@ class Controller
         View :: Instance() -> Output();
     }
     
-    private function Create( $arg, $argv )
+    private function Create( $argc, $argv = "" )
     {
         $Account = User :: Instance() -> Account();
         
-        $Arg = empty( $arg ) ? "" : new $arg();
-        
-        if ( $Account -> Create( $Arg, $argv ) ) 
+        if ( $Account -> Create( $argc, $argv ) ) 
         {
             $tpl = $Account -> GetTemplate();
         }
