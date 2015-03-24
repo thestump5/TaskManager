@@ -1,8 +1,8 @@
 <?php
 
 namespace Controller;
-use View\View;
-use User\User;
+use View\View,
+    User\User;
 /**
  * Description of Controller
  *
@@ -14,24 +14,15 @@ class Controller
     
     function __construct( &$request ) 
     {
-        $this -> request = (empty($request)) ? array() : $request;
+        $this -> request = ( empty($request) ) ? array() : $request;
+
+        $argc = array_key_exists( 'argc', $this -> request ) ? $this -> request['argc'] : "";
+        $argv = array_key_exists( 'argv', $this -> request ) ? $this -> request['argv'] : "";
+
         if ( array_key_exists('action', $this -> request ) &&
-                is_callable( array($this, ucfirst( $this -> request['action'] ) ) ) &&
-                array_key_exists('argc', $this -> request ) &&
-                array_key_exists('argv', $this -> request ) )
-        {
-            $this -> {$this -> request['action']}( $this -> request['argc'], $this -> request['argv'] );
-        }
-        else if ( array_key_exists('action', $this -> request ) &&
-                is_callable( array($this, ucfirst( $this -> request['action'] ) ) ) &&
-                array_key_exists('argc', $this -> request ) )
-        {
-            $this -> {$this -> request['action']}( $this -> request['argc'] );
-        }
-        else if ( array_key_exists('action', $this -> request ) &&
                 is_callable( array($this, ucfirst( $this -> request['action'] ) ) ) )
         {
-            $this -> {$this -> request['action']}(  );
+            $this -> {$this -> request['action']}( $argc, $argv );
         }
         else if ( array_key_exists('action', $this -> request ) && 
                 !is_callable( array($this, ucfirst( $this -> request['action'] ) ) ) )
