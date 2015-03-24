@@ -76,17 +76,17 @@ class Controller
         View :: Instance() -> Output();
     }    
     
-    private function Select()
-    {
-        if ( ($User = ( User :: Instance() -> Account( ( new User() ) -> Account() ) ) ) )
-        {
-            $User -> Open();
-            $tpl = $User -> GetTemplate();
-        }
-
-        View:: Instance() -> tpl = empty( $tpl ) ? "None_Empty" : $tpl;
-        View :: Instance() -> Output(  );
-    }
+//    private function Select()
+//    {
+//        if ( ($User = ( User :: Instance() -> Account( ( new User() ) -> Account() ) ) ) )
+//        {
+//            $User -> Open();
+//            $tpl = $User -> GetTemplate();
+//        }
+//
+//        View:: Instance() -> tpl = empty( $tpl ) ? "None_Empty" : $tpl;
+//        View :: Instance() -> Output(  );
+//    }
     
     private function Authentificate()
     {
