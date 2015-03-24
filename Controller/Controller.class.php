@@ -62,7 +62,7 @@ class Controller
         $Account -> Close();
         
         $tpl = $Account -> GetTemplate();
-        
+
         View:: Instance() -> tpl = empty($tpl) ? "User_OpenAccount" : $tpl;
         View :: Instance() -> Output();
     }
@@ -96,27 +96,6 @@ class Controller
         
         $db = new \Database\Database();
         $Query = new \Database\QueryBuilder();
-//        $Query -> addpart( 'INSERT INTO', 'user')
-//               -> addpart( 'FIELD', $user)
-//               -> addpart( 'VALUES', ['?','?','?','?'] );
-//        $db -> Build( $Query );      
-//        $db -> param = array_values( get_object_vars( $user ) );
-//        $db -> execute();        
-
-//        $db = new \Database\Database();
-//        $Query = new \Database\QueryBuilder();
-//        $Query -> addpart( 'UPDATE', 'user')
-//               -> addpart( 'SET', ['id'=>'?', 'name'=>'?', 'family'=>'?', 'address'=>'?'])
-//               -> addpart( 'WHERE', ['id'=>'4'] );
-//        $db -> Build( $Query );
-//        $db -> param = [1, 'User', 'Group', 'Home'];
-//        $db -> execute();        
-        
-//        $Query = $db -> Build()
-//            -> addpart( 'SELECT', '*' )
-//            -> addpart( 'FROM', ['account'] );
-//        $db -> apply( $Query );
-//        $subquery = "(".$db -> sql.")";
         
 //        $Query = new \Database\QueryBuilder();
 //        $Query -> addpart( 'SELECT', $user )
@@ -131,6 +110,7 @@ class Controller
         $Account ->setUser($user);
         $Account -> Open();
         $Account -> Create( $Account );
+
         //\Repositoriy\Repositoriy::Instance()->Open(  );
     }
     

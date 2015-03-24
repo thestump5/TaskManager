@@ -57,7 +57,7 @@ class Account
      * @return bool wheather is open
      */
     
-    public function Open() //Test edition!
+    public function Open()
     {
         $Rep = $this -> Repositoriy;
         if ( TRUE == $Rep -> Open( $this ) )
