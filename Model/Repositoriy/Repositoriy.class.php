@@ -18,7 +18,9 @@ class Repositoriy
     public $repositoriy = [];
     public $filter;
     
-    public static $Instance;
+    private static $Instance;
+    
+    private $transaction;
     
     public static function Instance()  
     {
@@ -124,8 +126,10 @@ class Repositoriy
         return $db -> execute();
     }
     
-    public function Create( &$obj, $stdClass = NULL )
+    public function Create( &$obj, $arg, $stdClass = NULL )
     {
+        $var = explode(",", $arg);
+        $this -> $var[0] = $var[1];
         return $this -> FillObject( $obj, $stdClass ) ? $this -> Save( $obj ) : FALSE;
     }
     

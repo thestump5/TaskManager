@@ -117,10 +117,10 @@ class Account
      * @return bool wheather is account created
      */
     
-    public function Create( $obj, $std = NULL ) 
+    public function Create( $obj, $argv = NULL ) 
     {
         $isCreated = FALSE;
-        if ( TRUE == $this -> Repositoriy -> Create( $obj, $std ) )
+        if ( TRUE == $this -> Repositoriy -> Create( $obj, $argv, NULL ) )
         {
             $this -> SetTemplate( "User_OpenAccount" );
             $isCreated = TRUE;
