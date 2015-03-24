@@ -10,6 +10,6 @@
             <br />            
             <input type="submit" style="margin-top:10px" />
         </form>
-        <a href="?action=UserLogin">Login</a>
+        <a href="?action=Login">Login</a>
     </body>
 </html>

@@ -126,8 +126,7 @@ class Repositoriy
     
     public function Create( &$obj, $stdClass = NULL )
     {
-        $this -> FillObject( $obj, $stdClass );
-        return $this -> Save( $obj );
+        return $this -> FillObject( $obj, $stdClass ) ? $this -> Save( $obj ) : FALSE;
     }
     
     private function FillObject( &$obj, $stdClass = NULL )//untested this
