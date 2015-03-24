@@ -89,7 +89,7 @@ class Repositoriy
 
         $db -> param = $param;
 
-        $isSaved = $db -> execute();
+        //$isSaved = $db -> execute();
         
         $obj -> id = $db -> lastId();
         

@@ -16,6 +16,12 @@ class Controller
     {
         $this -> request = (empty($request)) ? array() : $request;
         if ( array_key_exists('action', $this -> request ) &&
+                is_callable( array($this, ucfirst( $this -> request['action'] ) ) ) &&
+                array_key_exists('argc', $this -> request ) )
+        {
+            $this -> {$this -> request['action']}( $this -> request['argc'] );
+        }
+        else if ( array_key_exists('action', $this -> request ) &&
                 is_callable( array($this, ucfirst( $this -> request['action'] ) ) ) )
         {
             $this -> {$this -> request['action']}(  );
@@ -63,11 +69,13 @@ class Controller
         View :: Instance() -> Output();
     }
     
-    private function Create()
+    private function Create( $arg )
     {
         $Account = User :: Instance() -> Account();
         
-        if ( $Account -> Create( User :: Instance() ) ) 
+        $Arg = empty( $arg ) ? "" : new $arg();
+        
+        if ( $Account -> Create( $Arg ) ) 
         {
             $tpl = $Account -> GetTemplate();
         }

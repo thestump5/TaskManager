@@ -8,6 +8,6 @@
             <br />
             <input type="submit" style="margin-top:10px" />
         </form>
-        <a href="?action=Create">Create</a>
+        <a href="?action=Create&argc=User\User">Create</a>
     </body>
 </html>
