@@ -1,8 +1,8 @@
 <?php
 
 namespace User;
-use User\Role;
-use Repositoriy\Repositoriy;
+use User\Role,
+    Repositoriy\Repositoriy;
 /**
  * Description of User
  *
@@ -14,18 +14,19 @@ class Account
     public $pw;
     
     private $Role;
+    private $Repositoriy;
+    
     private $User;
     
     private $tpl = NULL;
     
     private $IS_LOGGINED = false;
     
-    function __construct() 
+    function __construct( $Repositoriy = NULL ) 
     {
-        if ( empty( $this -> Role ) )
-        {
-            $this -> Role = new Role();
-        }
+        $this -> Role = empty( $this -> Role ) ?  new Role() : $this -> Role;
+        $this -> Repositoriy = empty( $Repositoriy ) ? Repositoriy::Instance() : $Repositoriy;
+        
     }    
     
     public function setUser( &$User ) //untested
@@ -58,7 +59,7 @@ class Account
     
     public function Open() //Test edition!
     {
-        $Rep = Repositoriy :: Instance();
+        $Rep = $this -> Repositoriy;
         if ( TRUE == $Rep -> Open( $this ) )
         {
             $Rep -> setFilter( [ 'id' => $this -> id ] );
@@ -88,7 +89,7 @@ class Account
     public function Close() 
     {
         $this -> SetTemplate( "User_OpenAccount" );
-        return ( TRUE == Repositoriy :: Instance() -> Close( $this ) );
+        return ( TRUE == $this -> Repositoriy -> Close( $this ) );
     }
     
     /**
@@ -101,10 +102,10 @@ class Account
     {
         $isSaved = FALSE;
         $this -> SetTemplate( "User_OpenedAccount" );
-        $Rep = Repositoriy :: Instance();
+        $Rep = $this -> Repositoriy;
         if ( TRUE == $Rep -> Save( $this -> User ) )
         {
-            $isSaved = Repositoriy :: Instance() -> Save( $this );
+            $isSaved = $Rep -> Save( $this );
         }
         
         return $isSaved;
@@ -119,7 +120,7 @@ class Account
     public function Create( $obj, $std = NULL ) 
     {
         $isCreated = FALSE;
-        if ( TRUE == Repositoriy :: Instance() -> Create( $obj, $std ) )
+        if ( TRUE == $this -> Repositoriy -> Create( $obj, $std ) )
         {
             $this -> SetTemplate( "User_OpenAccount" );
             $isCreated = TRUE;
