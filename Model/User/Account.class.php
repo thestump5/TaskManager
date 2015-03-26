@@ -62,7 +62,7 @@ class Account
         $Rep = $this -> Repositoriy;
         if ( TRUE == $Rep -> Open( $this ) )
         {
-            $Rep -> setFilter( [ 'account' => $this -> id ] );
+            $Rep -> setFilter( [ 'id' => $this -> id ] );
             if (  TRUE == $Rep -> Open( $this -> User ) )
             {
                 
@@ -75,7 +75,6 @@ class Account
             $this -> IS_LOGGINED = FALSE;
         }
         
-        var_dump($this);
         return ( TRUE == $this -> Check() );
     }
 
@@ -98,6 +97,7 @@ class Account
      * @return bool wheather is data saved
      */
     
+    //Maybe thing about class
     public function Save() 
     {
         $isSaved = FALSE;
@@ -140,8 +140,7 @@ class Account
      * GetTemplate()
      * return is setting class template
      * @return string
-     */
-    
+     */    
     
     public function GetTemplate()
     {
@@ -157,5 +156,19 @@ class Account
     public function SetTemplate( $template )
     {
         return ( $this -> tpl = $template );
+    }
+
+    /**
+     * toselfcopy()
+     * Copy object to this class
+     * @return null
+     */
+
+    public function toselfcopy( &$obj )
+    {
+        foreach ( $obj as $key => $value )
+        {
+            $this -> $key = $value;
+        }
     }
 }

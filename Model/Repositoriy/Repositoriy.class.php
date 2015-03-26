@@ -105,8 +105,10 @@ class Repositoriy
                 {
                     $db -> sql = $transaction[0];
                     $db -> param = $transaction[1];
-
+                    
                     $db -> execute();
+                    
+                    $obj -> id = $db -> lastId();
                 }
 
                 $isSaved = $db -> commit();
@@ -162,28 +164,15 @@ class Repositoriy
     
     private function FillObject( &$obj, $stdClass = NULL )//untested this
     {
-        if ( empty( $stdClass ) )
-        {
-            if ( empty( $_POST ) )
-            {
-                $stdClass = array();
-            }
-            else
-            {
-                $stdClass = $_POST;
-            }
-        }
-        else
-        {
-            if ( is_array( $stdClass ) )
-            {
-                $stdClass = $stdClass;
-            }
-            else
-            {
-                $stdClass = get_object_vars( $stdClass );
-            }
-        }
+        $stdClass = empty( $stdClass )
+                        ? ( ( empty( $_POST ) )
+                                ? array()
+                                : $_POST
+                           )
+                        : ( ( is_array( $stdClass ) )
+                                ? $stdClass
+                                : get_object_vars( $stdClass )
+                          );
         
         if ( !empty ( array_diff( array_keys( get_object_vars( $obj ) ), 
                         array_keys( $stdClass ) ) ) )
