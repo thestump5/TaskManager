@@ -126,7 +126,10 @@ class Account
         
         if ( TRUE == $this -> Repositoriy -> Create( $obj, $arg ) )
         {
-            $this -> SetTemplate( "User_OpenAccount" );
+            empty( $argv ) 
+                ? $this -> SetTemplate( "User_CreateAccount" )
+                : $this -> SetTemplate( "User_OpenAccount" );
+            
             $isCreated = TRUE;
         }
         

@@ -71,6 +71,10 @@ class Repositoriy
         $db = new \Database\Database();
         $Query = new \Database\QueryBuilder();
         
+        is_null( $this -> transaction )
+            ? $db -> transaction()
+            : TRUE;
+        
         $param = array_values( get_object_vars( $obj ) );
         $values = [];
         
@@ -91,12 +95,21 @@ class Repositoriy
 
         $db -> param = $param;
 
-        //$isSaved = $db -> execute();
+        $isSaved = $db -> execute();
+
+        if ( $obj -> id == -1 )
+        {
+            $obj -> id = $db -> lastId();
+        }
         
+        if ( !empty( $this -> transaction ) )
+        {
+            $this -> transaction 
+                ? $db -> commit() 
+                : TRUE;
+        }
         
-        $obj -> id = $db -> lastId();
-        
-        return $isSaved = TRUE;
+        return $isSaved;
     }    
     
     public function Search()
@@ -129,6 +142,8 @@ class Repositoriy
     
     public function Create( &$obj, $arg, $stdClass = NULL )
     {
+        $this -> transaction = ( ( $index = array_search("transaction", $arg) ) === FALSE )
+                                    ? NULL : $arg[ $index + 1 ];
         return $this -> FillObject( $obj, $stdClass ) ? $this -> Save( $obj, $arg ) : FALSE;
     }
     
@@ -168,7 +183,7 @@ class Repositoriy
         {
             $obj -> $key = $value;
         }
-        
+
         return TRUE;
     }
     

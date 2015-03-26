@@ -63,4 +63,28 @@ class Database
         
         return $fetch;
     }
+    
+    public function transaction()
+    {
+        try
+        {
+            $this -> start_transaction();
+        }
+        catch( PDOException $Exception )
+        {
+            throw new \Exception( $Exception->getMessage( ) , (int)$Exception->getCode( ) );
+        }    
+    }
+    
+    public function commit()
+    {
+        try
+        {
+            $this -> commit_transaction();
+        }
+        catch( PDOException $Exception )
+        {
+            throw new \Exception( $Exception->getMessage( ) , (int)$Exception->getCode( ) );
+        }    
+    }
 }

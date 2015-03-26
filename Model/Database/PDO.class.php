@@ -14,6 +14,8 @@ trait PDO
     private $pdo;
     private $statement;
 
+    private $transaction;
+    
     private $DB_HOST = '127.0.0.1';
     private $DB_NAME = 'mydb';
     private $DB_USER = 'root';
@@ -38,6 +40,28 @@ trait PDO
     public function close()
     {
         $this -> pdo = NULL;
+    }
+    
+    public function start_transaction()
+    {
+        if ( $this -> transaction )
+        {
+            $this -> rollback_transaction();
+        }
+        
+        $this -> transaction = $this -> pdo -> beginTransaction();
+    }
+    
+    public function commit_transaction()
+    {
+        $this -> pdo -> commit();
+        $this -> transaction = FALSE;
+    }
+
+    public function rollback_transaction()
+    {
+        $this -> pdo -> rollBack();
+        $this -> transaction = FALSE;
     }
     
     public function prepare( $sql )
