@@ -43,21 +43,42 @@ trait PDO
         $this -> pdo = NULL;
     }
     
-    public function start_transaction()
+    public function transaction()
     {
-        return ( $this -> transaction = $this -> pdo -> beginTransaction() );
+        try
+        {
+            return ( $this -> transaction = $this -> pdo -> beginTransaction() );
+        }
+        catch( PDOException $Exception )
+        {
+            throw new \Exception( $Exception->getMessage( ) , (int)$Exception->getCode( ) );
+        }    
     }
     
-    public function commit_transaction()
+    public function commit()
     {
-        $this -> transaction = FALSE;
-        return $this -> pdo -> commit();
+        try
+        {
+            $this -> transaction = FALSE;
+            return $this -> pdo -> commit();
+        }
+        catch( PDOException $Exception )
+        {
+            throw new \Exception( $Exception->getMessage( ) , (int)$Exception->getCode( ) );
+        }    
     }
 
-    public function rollback_transaction()
+    public function rollback()
     {
-        $this -> transaction = FALSE;        
-        return $this -> pdo -> rollBack();
+        try
+        {
+            $this -> transaction = FALSE;        
+            return $this -> pdo -> rollBack();
+        }
+        catch( PDOException $Exception )
+        {
+            throw new \Exception( $Exception->getMessage( ) , (int)$Exception->getCode( ) );
+        }    
     }
     
     public function prepare( $sql )

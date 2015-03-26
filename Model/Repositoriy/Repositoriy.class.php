@@ -98,16 +98,25 @@ class Repositoriy
         
         if ( !empty( $this -> transaction ) )
         {
-            $db -> transaction();
-            foreach ( $_SESSION['transaction'] as $transaction )
+            try
             {
-                $db -> sql = $transaction[0];
-                $db -> param = $transaction[1];
+                $db -> transaction();
+                foreach ( $_SESSION['transaction'] as $transaction )
+                {
+                    $db -> sql = $transaction[0];
+                    $db -> param = $transaction[1];
 
-                $db -> execute();
+                    $db -> execute();
+                }
+
+                $isSaved = $db -> commit();
+            }
+            catch( PDOException $Exception )
+            {
+                $db -> rollback();
+                throw new \Exception( $Exception->getMessage( ) , (int)$Exception->getCode( ) );
             }
 
-            $isSaved = $db -> commit();
             session_destroy();
         }
         
