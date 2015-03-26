@@ -62,7 +62,7 @@ class Account
         $Rep = $this -> Repositoriy;
         if ( TRUE == $Rep -> Open( $this ) )
         {
-            $Rep -> setFilter( [ 'id' => $this -> id ] );
+            $Rep -> setFilter( [ 'account' => $this -> id ] );
             if (  TRUE == $Rep -> Open( $this -> User ) )
             {
                 

@@ -32,7 +32,8 @@ trait PDO
         $this -> pdo = new \PDO(
                 "mysql:host=" . $this -> DB_HOST . " ;dbname=" . $this -> DB_NAME . ";", 
                 $this -> DB_USER, 
-                $this -> DB_PW
+                $this -> DB_PW,
+                array(\PDO::ATTR_PERSISTENT => true)
             );
         return ( bool ) $this -> pdo;
     }
@@ -44,26 +45,19 @@ trait PDO
     
     public function start_transaction()
     {
-        if ( $this -> transaction )
-        {
-            $this -> rollback_transaction();
-        }
-        
-        $this -> transaction = $this -> pdo -> beginTransaction();
-        
-        echo "Transaction";
+        return ( $this -> transaction = $this -> pdo -> beginTransaction() );
     }
     
     public function commit_transaction()
     {
-        $this -> pdo -> commit();
         $this -> transaction = FALSE;
+        return $this -> pdo -> commit();
     }
 
     public function rollback_transaction()
     {
-        $this -> pdo -> rollBack();
-        $this -> transaction = FALSE;
+        $this -> transaction = FALSE;        
+        return $this -> pdo -> rollBack();
     }
     
     public function prepare( $sql )

@@ -73,6 +73,7 @@ class QueryBuilder
                 //TODO: in condition > and <.
                 array_walk($array, function (&$item, $key)
                                             {   
+                                                $item = is_numeric( $item ) ? $item : "'$item'";
                                                 $item = $key . "=" . $item;
                                             }
                           );

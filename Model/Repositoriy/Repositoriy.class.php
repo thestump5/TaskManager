@@ -71,9 +71,7 @@ class Repositoriy
         $db = new \Database\Database();
         $Query = new \Database\QueryBuilder();
         
-        is_null( $this -> transaction )
-            ? $db -> transaction()
-            : TRUE;
+        $isSaved = TRUE;
         
         $param = array_values( get_object_vars( $obj ) );
         $values = [];
@@ -83,31 +81,37 @@ class Repositoriy
             $values[] = '?';
         }
         
-        $Query -> key_exclude[] = "SET";
+        session_start();
         
+        $Query -> key_exclude[] = "SET";
+
         $Query -> addpart( 'INSERT INTO', strtolower( substr( get_class( $obj ), strpos(get_class( $obj ), "\\" ) + 1 ) ) )
-               -> addpart( 'FIELD', $obj)
-               -> addpart( 'VALUES', $values )
-               -> addpart( 'ON DUPLICATE KEY' )
-               -> addpart( 'UPDATE' )
-               -> addpart( 'SET', get_object_vars( $obj ) );
-        $db -> Build( $Query );     
-
-        $db -> param = $param;
-
-        $isSaved = $db -> execute();
-
-        if ( $obj -> id == -1 )
-        {
-            $obj -> id = $db -> lastId();
-        }
+                -> addpart( 'FIELD', $obj )
+                -> addpart( 'VALUES', $values )
+                -> addpart( 'ON DUPLICATE KEY' )
+                -> addpart( 'UPDATE' )
+                -> addpart( 'SET', get_object_vars( $obj ) );
+        $db -> Build( $Query );
+        
+        //Хранить данные в сесси, а в транзакции формировать запрос.
+        $_SESSION['transaction'][] = [$db -> sql, $param];
         
         if ( !empty( $this -> transaction ) )
         {
-            $this -> transaction 
-                ? $db -> commit() 
-                : TRUE;
+            $db -> transaction();
+            foreach ( $_SESSION['transaction'] as $transaction )
+            {
+                $db -> sql = $transaction[0];
+                $db -> param = $transaction[1];
+
+                $db -> execute();
+            }
+
+            $isSaved = $db -> commit();
+            session_destroy();
         }
+        
+        var_dump($isSaved);
         
         return $isSaved;
     }    

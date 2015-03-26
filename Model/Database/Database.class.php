@@ -66,25 +66,30 @@ class Database
     
     public function transaction()
     {
+        $transaction = FALSE;
         try
         {
-            $this -> start_transaction();
+            $transaction = $this -> start_transaction();
         }
         catch( PDOException $Exception )
         {
             throw new \Exception( $Exception->getMessage( ) , (int)$Exception->getCode( ) );
         }    
+        
+        return $transaction;
     }
     
     public function commit()
     {
+        $transaction = FALSE;
         try
         {
-            $this -> commit_transaction();
+            $transaction = $this -> commit_transaction();
         }
         catch( PDOException $Exception )
         {
             throw new \Exception( $Exception->getMessage( ) , (int)$Exception->getCode( ) );
         }    
+        return $transaction;
     }
 }
