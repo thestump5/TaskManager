@@ -61,7 +61,7 @@ class RepositoriyTest extends \PHPUnit_Framework_TestCase
         $Repositoriy = new Repositoriy();
         $std = ['id'=>1, 'name'=>'name', 'family'=>'family', 'address'=>'address'];
         $User = new User();
-        $this -> assertTrue( $Repositoriy -> Create( $User, $std ) );
+        $this -> assertTrue( $Repositoriy -> Create( $User, "", $std ) );
     } 
     
     function testCanDelete()

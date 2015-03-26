@@ -28,7 +28,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
     {
         $Database = new Database();
         $Database -> sql = "SELECT * FROM user";
-        $this -> assertNotEmpty( $Database -> execute() );
+        $this -> assertNotEmpty( $Database -> run() );
     }    
 
     function testCanFetchResultQuery()

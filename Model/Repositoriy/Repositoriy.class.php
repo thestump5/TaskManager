@@ -66,7 +66,7 @@ class Repositoriy
     }
 
     //What is array to where clause?
-    public function Save( &$obj, $transaction = FALSE )
+    public function Save( &$obj )
     {
         $db = new \Database\Database();
         $Query = new \Database\QueryBuilder();
@@ -80,8 +80,6 @@ class Repositoriy
         {
             $values[] = '?';
         }
-        
-        session_start();
         
         $Query -> key_exclude[] = "SET";
 
@@ -122,7 +120,7 @@ class Repositoriy
             session_destroy();
         }
         
-        var_dump($isSaved);
+//        var_dump($isSaved);
         
         return $isSaved;
     }    
@@ -157,7 +155,7 @@ class Repositoriy
     
     public function Create( &$obj, $arg, $stdClass = NULL )
     {
-        $this -> transaction = ( ( $index = array_search("transaction", $arg) ) === FALSE )
+        $this -> transaction = ( ( $index = array_search("transaction", (array)$arg) ) === FALSE )
                                     ? NULL : $arg[ $index + 1 ];
         return $this -> FillObject( $obj, $stdClass ) ? $this -> Save( $obj, $arg ) : FALSE;
     }

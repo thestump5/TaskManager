@@ -103,7 +103,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $std -> pw = 'pw';
         $std -> attribute = 'attr';
 
-        $this -> assertTrue( $Account -> Create( $Account, $std ) );
+        $this -> assertTrue( $Account -> Create( $Account, "", $std ) );
     }    
     
     function testCanCheckEqualseAccountUser()
