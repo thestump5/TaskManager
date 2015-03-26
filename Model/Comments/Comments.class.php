@@ -37,7 +37,7 @@ class Comments extends Message
     {
         foreach ( $Message as $key => $message )
         {
-            echo $key, $message, "<br />";
+            print( $key . ":" . $message . "\r<br />" );
             $this -> $key = $message;
         }
         

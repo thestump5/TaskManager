@@ -8,9 +8,9 @@ namespace Comments;
  */
 class Message 
 {
-    private $text;
-    private $date;
-    private $ansver;    
+    protected $text;
+    protected $date;
+    protected $ansver;    
     
     protected $User;
     
