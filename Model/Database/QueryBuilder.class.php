@@ -45,8 +45,8 @@ class QueryBuilder
         $this -> sql .= implode( " ", $fields );
         $this -> sql = str_replace( $this -> key_exclude, "", $this -> sql );
         
-        var_dump( $this -> sql );
-        echo "<br />";
+//        var_dump( $this -> sql );
+//        echo "<br />";
         return ( TRUE == $this -> sql );
     }
     

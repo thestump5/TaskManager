@@ -106,7 +106,7 @@ class Repositoriy
                     $db -> sql = $transaction[0];
                     $db -> param = $transaction[1];
                     
-                    $db -> execute();
+                    $db -> run();
                     
                     $obj -> id = $db -> lastId();
                 }
@@ -152,7 +152,7 @@ class Repositoriy
                -> addpart( 'WHERE', ['id'=>$obj->id] );
         $db -> Build( $Query );     
 
-        return $db -> execute();
+        return $db -> run();
     }
     
     public function Create( &$obj, $arg, $stdClass = NULL )

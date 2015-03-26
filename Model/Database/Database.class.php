@@ -10,11 +10,7 @@ use Database\QueryBuilder,
  */
 class Database
 {
-    use PDO
-    {
-        prepare as pdo_prepare;
-        execute as pdo_execute;
-    }
+    use PDO;
     
     public $sql;
     public $param = [];
@@ -32,13 +28,12 @@ class Database
         return ( bool )$this -> sql;
     }
     
-    public function execute()
+    public function run()
     {
-        //Может быть try...catch перенести в класс PDO ?
         try
         {
-            $this -> pdo_prepare( $this -> sql );
-            $execute = $this -> pdo_execute( $this -> param );
+            $this -> prepare( $this -> sql );
+            $execute = $this -> execute( $this -> param );
         }
         catch( PDOException $Exception )
         {
@@ -52,8 +47,8 @@ class Database
     {    
         try
         {
-            $this -> pdo_prepare( $this -> sql );
-            $this -> pdo_execute( $this -> param );
+            $this -> prepare( $this -> sql );
+            $this -> execute( $this -> param );
             $fetch = $this -> fetch();
         }
         catch( PDOException $Exception )

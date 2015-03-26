@@ -14,8 +14,6 @@ trait PDO
     private $pdo;
     private $statement;
 
-    private $transaction;
-    
     private $DB_HOST = '127.0.0.1';
     private $DB_NAME = 'mydb';
     private $DB_USER = 'root';
@@ -35,7 +33,7 @@ trait PDO
                 $this -> DB_PW,
                 array(\PDO::ATTR_PERSISTENT => true)
             );
-        return ( bool ) $this -> pdo;
+        return ( bool )$this -> pdo;
     }
     
     public function close()
@@ -47,19 +45,18 @@ trait PDO
     {
         try
         {
-            return ( $this -> transaction = $this -> pdo -> beginTransaction() );
+            return $this -> pdo -> beginTransaction();
         }
         catch( PDOException $Exception )
         {
             throw new \Exception( $Exception->getMessage( ) , (int)$Exception->getCode( ) );
-        }    
+        }
     }
     
     public function commit()
     {
         try
         {
-            $this -> transaction = FALSE;
             return $this -> pdo -> commit();
         }
         catch( PDOException $Exception )
@@ -72,7 +69,6 @@ trait PDO
     {
         try
         {
-            $this -> transaction = FALSE;        
             return $this -> pdo -> rollBack();
         }
         catch( PDOException $Exception )
