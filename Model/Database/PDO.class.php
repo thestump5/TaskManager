@@ -50,6 +50,8 @@ trait PDO
         }
         
         $this -> transaction = $this -> pdo -> beginTransaction();
+        
+        echo "Transaction";
     }
     
     public function commit_transaction()
