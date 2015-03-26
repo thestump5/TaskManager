@@ -42,7 +42,7 @@ class Project
 
     public function Save()
     {
-        return ( FALSE == Repositoriy :: Instance() -> Save( $this ) );
+//        return ( FALSE == Repositoriy :: Instance() -> Save( $this ) );
     }
     
     //Think about this

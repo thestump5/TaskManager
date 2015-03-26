@@ -34,7 +34,7 @@ class Task
     
     public function Create()
     {
-        return ( FALSE == Repositoriy :: Instance() -> Create( $this ) );
+//        return ( FALSE == Repositoriy :: Instance() -> Create( $this ) );
     }
     
     public function Open()
@@ -49,7 +49,7 @@ class Task
     
     public function Save()
     {
-        return ( FALSE == Repositoriy :: Instance() -> Save( $this ) );
+//        return ( FALSE == Repositoriy :: Instance() -> Save( $this ) );
     }    
 
     public function AddComments( $_Comments )
