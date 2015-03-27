@@ -11,26 +11,15 @@ namespace Database;
 
 trait PDO 
 {
-    private $pdo;
-    private $statement;
-
-    private $DB_HOST = '127.0.0.1';
-    private $DB_NAME = 'mydb';
-    private $DB_USER = 'root';
-    private $DB_PW = '1111';
-    
-    public function __get( $name )
-    {
-        echo $name;
-        return $this -> $name;
-    }
+    protected $pdo;
+    protected $statement;
     
     public function connect()
     {
         $this -> pdo = new \PDO(
-                "mysql:host=" . $this -> DB_HOST . " ;dbname=" . $this -> DB_NAME . ";", 
-                $this -> DB_USER, 
-                $this -> DB_PW,
+                "mysql:host='127.0.0.1' ;dbname='mydb';", 
+                'root', 
+                '1111',
                 array(\PDO::ATTR_PERSISTENT => true)
             );
         return ( bool )$this -> pdo;
