@@ -15,5 +15,6 @@ require_once '/../Model/app.php';
 
 session_start();
 
+
 app::Init();
 app :: Instance() -> Notify( "<b>Script time:</b> " . round( ( microtime( true ) - $time_start ), 5 ) );

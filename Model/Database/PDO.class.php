@@ -17,7 +17,7 @@ trait PDO
     public function connect()
     {
         $this -> pdo = new \PDO(
-                "mysql:host='127.0.0.1' ;dbname='mydb';", 
+                "mysql:host=127.0.0.1 ;dbname=mydb;", 
                 'root', 
                 '1111',
                 array(\PDO::ATTR_PERSISTENT => true)
