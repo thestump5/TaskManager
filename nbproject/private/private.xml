@@ -5,9 +5,11 @@
         <group>
             <file>file:/E:/www/TaskManager/TaskManager/Model/Repositoriy/Repositoriy.class.php</file>
             <file>file:/E:/www/TaskManager/TaskManager/Test/AccountTest.php</file>
+            <file>file:/E:/www/TaskManager/TaskManager/Model/Database/PDO.class.php</file>
             <file>file:/E:/www/TaskManager/TaskManager/readme.md</file>
             <file>file:/E:/www/TaskManager/TaskManager/Model/User/Account.class.php</file>
             <file>file:/E:/www/TaskManager/TaskManager/Controller/Controller.class.php</file>
+            <file>file:/E:/www/TaskManager/TaskManager/www/index.php</file>
         </group>
     </open-files>
 </project-private>
