@@ -5,7 +5,7 @@
             $arg = filter_input(INPUT_GET, 'argc');
             if ( TRUE == strpos( $arg, 'Account' ) ):
         ?>
-        <form action="http://localhost?action=Create&argc=User\User&argv=transaction,1" method="post">
+        <form action="?action=Create&argc=User\User&argv=transaction,1" method="post">
             <label>
                 Личная информация
             </label>
@@ -18,7 +18,7 @@
         <?php
             elseif ( TRUE == strpos( $arg, 'User' ) || FALSE == strpos( $arg, 'Account' ) ):
         ?>
-        <form action="http://localhost?action=Create&argc=User\Account" method="post">
+        <form action="?action=Create&argc=User\Account" method="post">
             <label>
                 Информация аккаунта
             </label>

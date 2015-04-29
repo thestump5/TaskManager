@@ -9,6 +9,9 @@
 
 namespace Main;
 
+error_reporting(E_ALL);
+ini_set("deisplay_errors", 1);
+
 $time_start = microtime( true );
 
 require_once '/../Model/app.php';
