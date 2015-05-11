@@ -6,6 +6,7 @@
 	<Local Expanded="Yes">
 		<Model Expanded="Yes" ID="{AD98519A-8CC0-4ABA-BC5B-2C438A62BDB8}" Name="Task manager" Selected="Yes" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Task manager.oom"/>
 		<Model Expanded="Yes" ID="{AF60E7BA-8CED-4AC7-8C74-5F4D27314DF3}" Loaded="No" Name="DB_Diagrama" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="DB_diaagrama.cdm"/>
+		<Model Expanded="Yes" ID="{5D7803BD-F408-43C4-AF80-4BCABDEF11CE}" Loaded="No" Name="DB_Diagrama" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="DB_Diagrama.pdm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
