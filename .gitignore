@@ -56,6 +56,9 @@ nbproject
 #tmp
 #UMLSchema
 
-DB_Diagrama.*
-DB_diagrama.*
-Workspace.*
+DB_Diagrama.pdb
+DB_Diagrama.pdm
+DB_diagrama.cdb
+DB_diagrama.cdm
+
+Workspace.sws
